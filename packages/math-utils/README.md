@@ -1,6 +1,6 @@
-# @aave/math-utils
+# @monetaria/math-utils
 
-The `@aave/math-utils` data formatting methods act as a layer on top of the
+The `@monetaria/math-utils` data formatting methods act as a layer on top of the
 chain data. The use-cases range from "human readable formatting" to
 "approximating accrual over time".
 
@@ -10,8 +10,8 @@ Install the package in your project directory with:
 
 ```sh
 // with npm
-npm install @aave/math-utils
+npm install @monetaria/math-utils
 
 // with yarn
-yarn add @aave/math-utils
+yarn add @monetaria/math-utils
 ```

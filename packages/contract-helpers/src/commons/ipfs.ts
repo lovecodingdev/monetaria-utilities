@@ -54,7 +54,7 @@ export async function getProposalMetadata(
     return MEMORIZE[ipfsHash];
   } catch (e: unknown) {
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    console.error(`@aave/contract-helpers: IPFS fetch Error: ${e}`);
+    console.error(`@monetaria/contract-helpers: IPFS fetch Error: ${e}`);
     return {
       ipfsHash,
       title: `Proposal - ${ipfsHash}`,

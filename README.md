@@ -1,22 +1,22 @@
-<p align="center"> <a href="https://aave.com/" rel="noopener" target="_blank"><img width="150" src="https://aave.com/static/media/ghostGradient.77808e40.svg" alt="Aave logo"></a></p>
+<p align="center"> <a href="https://monetaria.com/" rel="noopener" target="_blank"><img width="150" src="https://monetaria.com/static/media/ghostGradient.77808e40.svg" alt="Monetaria logo"></a></p>
 
-<h1 align="center">Aave Utilities</h1>
+<h1 align="center">Monetaria Utilities</h1>
 
-The Aave Protocol is a decentralized non-custodial liquidity protocol
+The Monetaria Protocol is a decentralized non-custodial liquidity protocol
 where users can participate as suppliers or borrowers. The protocol is a set of
 open source smart contracts which facilitate the logic of user interactions. 
 These contracts, and all user transactions/balances are stored on a
 public ledger called a blockchain, making them accessible to anyone
 
-Aave Utilities is a JavaScript SDK for interacting with V2 and V3 of the Aave
-Protocol, an upgrade to the existing [aave-js](https://github.com/aave/aave-js)
+Monetaria Utilities is a JavaScript SDK for interacting with V2 and V3 of the Monetaria
+Protocol, an upgrade to the existing [monetaria-js](https://github.com/monetaria/monetaria-js)
 library
 
-The `@aave/math-utils` package contains methods for formatting raw
+The `@monetaria/math-utils` package contains methods for formatting raw
 ([ethers.js](#ethers.js)) or indexed ([subgraph](#subgraph),
 [caching server](#caching-server)) contract data for usage on a frontend
 
-The `@aave/contract-helpers` package contains methods for generating trancations
+The `@monetaria/contract-helpers` package contains methods for generating trancations
 based on method and parameter inputs. Can be used to read and write data on the
 protocol contracts.
 
@@ -24,9 +24,9 @@ protocol contracts.
 
 ## Installation
 
-Aave utilities are available as npm packages,
-[contract helpers](https://www.npmjs.com/package/@aave/contract-helpers) and
-[math utils](https://www.npmjs.com/package/@aave/math-utils)
+Monetaria utilities are available as npm packages,
+[contract helpers](https://www.npmjs.com/package/@monetaria/contract-helpers) and
+[math utils](https://www.npmjs.com/package/@monetaria/math-utils)
 
 [ethers v5](https://docs.ethers.io/v5/) and [reflect-metadata](reflect metadata)
 are peer dependencies of the contract-helpers package
@@ -34,11 +34,11 @@ are peer dependencies of the contract-helpers package
 ```sh
 // with npm
 npm install --save-dev ethers reflect-metadata
-npm install @aave/contract-helpers @aave/math-utils
+npm install @monetaria/contract-helpers @monetaria/math-utils
 
 // with yarn
 yarn add --dev ethers reflect-metadata
-yarn add @aave/contract-helpers @aave/math-utils
+yarn add @monetaria/contract-helpers @monetaria/math-utils
 ```
 
 <br />
@@ -105,11 +105,11 @@ yarn add @aave/contract-helpers @aave/math-utils
 
 # Data Formatting Methods
 
-Users interact with the Aave protocol through a set of smart contracts. The
-`@aave/math-utils` package is a collection of methods to take raw input data
+Users interact with the Monetaria protocol through a set of smart contracts. The
+`@monetaria/math-utils` package is a collection of methods to take raw input data
 from these contracts, and format to use on a frontend interface such as
-[Aave Ui](https://github.com/aave/aave-ui) or
-[Aave info](https://github.com/sakulstra/info.aave)
+[Monetaria Ui](https://github.com/monetaria/monetaria-ui) or
+[Monetaria info](https://github.com/sakulstra/info.monetaria)
 
 ## Fetching Protocol Data
 
@@ -144,21 +144,21 @@ import {
   UiPoolDataProvider,
   UiIncentiveDataProvider,
   ChainId,
-} from '@aave/contract-helpers';
+} from '@monetaria/contract-helpers';
 
 // Sample RPC address for querying ETH mainnet
 const provider = new ethers.providers.JsonRpcProvider(
   'https://eth-mainnet.alchemyapi.io/v2/demo',
 );
 
-// This is the provider used in Aave UI, it checks the chainId locally to reduce RPC calls with frequent network switches, but requires that the rpc url and chainId to remain consistent with the request being sent from the wallet (i.e. actively detecting the active chainId)
+// This is the provider used in Monetaria UI, it checks the chainId locally to reduce RPC calls with frequent network switches, but requires that the rpc url and chainId to remain consistent with the request being sent from the wallet (i.e. actively detecting the active chainId)
 const provider = new ethers.providers.StaticJsonRpcProvider(
   'https://eth-mainnet.alchemyapi.io/v2/demo',
   ChainId.mainnet,
 );
 
-// Aave protocol contract addresses, will be different for each market and can be found at https://docs.aave.com/developers/deployed-contracts/deployed-contracts
-// For V3 Testnet Release, contract addresses can be found here https://github.com/aave/aave-ui/blob/feat/arbitrum-clean/src/ui-config/markets/index.ts
+// Monetaria protocol contract addresses, will be different for each market and can be found at https://docs.monetaria.com/developers/deployed-contracts/deployed-contracts
+// For V3 Testnet Release, contract addresses can be found here https://github.com/monetaria/monetaria-ui/blob/feat/arbitrum-clean/src/ui-config/markets/index.ts
 const uiPoolDataProviderAddress = '0xa2DC1422E0cE89E1074A6cd7e2481e8e9c4415A6';
 const uiIncentiveDataProviderAddress =
   '0xD01ab9a6577E1D84F142e44D49380e23A340387d';
@@ -189,7 +189,7 @@ const reserves = await poolDataProviderContract.getReservesHumanized({
   lendingPoolAddressProvider,
 });
 
-// Object containing array or users aave positions and active eMode category
+// Object containing array or users monetaria positions and active eMode category
 // { userReserves, userEmodeCategoryId }
 const userReserves = await poolDataProviderContract.getUserReservesHumanized({
   lendingPoolAddressProvider,
@@ -225,7 +225,7 @@ endpoing to query data from. Each network where the protocol is deployed is a
 corresponding subgraph. Subgraph can be queried directly using the playground
 (links below) and integrated into applications directly via TheGraph API. Check
 out these guides from
-[Aave](https://docs.aave.com/developers/getting-started/using-graphql) and
+[Monetaria](https://docs.monetaria.com/developers/getting-started/using-graphql) and
 [TheGraph](https://thegraph.com/docs/en/developer/querying-from-your-app/) for
 resources on querying subgraph from a frontend application.
 
@@ -503,16 +503,16 @@ maps incentives to reserves and userReserves.
 
 ### Caching Server
 
-Given that the Aave Ui has decentralized hosting with IPFS, it makes sense to
+Given that the Monetaria Ui has decentralized hosting with IPFS, it makes sense to
 not require any API keys to run the UI, but this means only public rpc endpoints
-are used which are quickly rate limited. To account for this, Aave has publushed
-a [caching server](https://github.com/aave/aave-ui-caching-server) to perform
+are used which are quickly rate limited. To account for this, Monetaria has publushed
+a [caching server](https://github.com/monetaria/monetaria-ui-caching-server) to perform
 contract queries on one server, then serve this data to all frontend users
 through a graphQL endpoint.
 
 The four queries to fetch input data (in both query and subscription form) are
 located
-[here](https://github.com/aave/aave-ui/tree/master/src/libs/caching-server-data-provider/graphql)
+[here](https://github.com/monetaria/monetaria-ui/tree/master/src/libs/caching-server-data-provider/graphql)
 in the follow files:
 
 - protocol-data.graphql
@@ -521,13 +521,13 @@ in the follow files:
 - user-incentives-data.graphql
 
 Examples of hooks for fetching data with these queries are located
-[here](https://github.com/aave/aave-ui/tree/master/src/libs/caching-server-data-provider/hooks).
+[here](https://github.com/monetaria/monetaria-ui/tree/master/src/libs/caching-server-data-provider/hooks).
 
 <br />
 
 ## Reserve Data
 
-Formatted reserve data is an array of tokens in the Aave market, containing
+Formatted reserve data is an array of tokens in the Monetaria market, containing
 realtime, human-readable data above asset configuration (maxLtv,
 liquidationThreshold, usageAsCollateral, etc.) and current status (rates,
 liquidity, utilization, etc.)
@@ -539,13 +539,13 @@ Both require input data from the
 ### formatReserves
 
 formatReserves returns an array of formatted configuration and status data for
-each reserve in an Aave market
+each reserve in an Monetaria market
 
 <details>
   <summary>Sample Code</summary>
 
 ```ts
-import { formatReserves } from '@aave/math-utils';
+import { formatReserves } from '@monetaria/math-utils';
 import dayjs from 'dayjs';
 
 // reserves input from Fetching Protocol Data section
@@ -578,13 +578,13 @@ const formattedPoolReserves = formatReserves({
 
 formatReservesAndIncentives returns an array of formatted configuration and
 status data plus an object with supply, variable borrow, and stable borrow
-incentives for each reserve in an Aave market
+incentives for each reserve in an Monetaria market
 
 <details>
   <summary>Sample Code</summary>
 
 ```ts
-import { formatReservesAndIncentives } from '@aave/math-utils';
+import { formatReservesAndIncentives } from '@monetaria/math-utils';
 import dayjs from 'dayjs';
 
 // 'reserves' and 'reserveIncentives' inputs from Fetching Protocol Data section
@@ -619,11 +619,11 @@ const formattedPoolReserves = formatReservesAndIncentives({
 
 Formatted user data is an object containing cumulative metrics (healthFactor,
 totalLiquidity, totalBorrows, etc.) and an array of formatted reserve data plus
-user holdings (aTokens, debtTokens) for each reserve in an Aave market
+user holdings (aTokens, debtTokens) for each reserve in an Monetaria market
 
 ### formatUserSummary
 
-Returns formatted summary of Aave user portfolio including: array of holdings,
+Returns formatted summary of Monetaria user portfolio including: array of holdings,
 total liquidity, total collateral, total borrows, liquidation threshold, health
 factor, and available borrowing power
 
@@ -631,7 +631,7 @@ factor, and available borrowing power
   <summary>Sample Code</summary>
 
 ```ts
-import { formatUserSummary } from '@aave/math-utils';
+import { formatUserSummary } from '@monetaria/math-utils';
 import dayjs from 'dayjs';
 
 // 'reserves' and 'userReserves' inputs from Fetching Protocol Data section
@@ -674,7 +674,7 @@ const userSummary = formatUserSummary({
 
 ### formatUserSummaryAndIncentives
 
-Returns formatted summary of Aave user portfolio including: array of holdings,
+Returns formatted summary of Monetaria user portfolio including: array of holdings,
 total liquidity, total collateral, total borrows, liquidation threshold, health
 factor, available borrowing power, and dictionary of claimable incentives
 
@@ -682,7 +682,7 @@ factor, available borrowing power, and dictionary of claimable incentives
   <summary>Sample Code</summary>
 
 ```ts
-import { formatUserSummaryAndIncentives } from '@aave/math-utils';
+import { formatUserSummaryAndIncentives } from '@monetaria/math-utils';
 import dayjs from 'dayjs';
 
 // 'reserves', 'userReserves', 'reserveIncentives', and 'userIncentives' inputs from Fetching Protocol Data section
@@ -729,7 +729,7 @@ const userSummary = formatUserSummaryAndIncentives({
 
 # Transaction Methods
 
-The transaction methods package provides an sdk to interact with Aave Protocol
+The transaction methods package provides an sdk to interact with Monetaria Protocol
 contracts. See [ethers.js](#ethers.js) for instructions on installing setting up
 and ethers provider
 
@@ -743,7 +743,7 @@ All transaction methods will return an array of transaction objects of this
 type:
 
 ```ts
-import { EthereumTransactionTypeExtended } from '@aave/contract-helpers';
+import { EthereumTransactionTypeExtended } from '@monetaria/contract-helpers';
 ```
 
 To send a transaction from this object:
@@ -752,7 +752,7 @@ To send a transaction from this object:
 import { BigNumber, providers } from 'ethers';
 
 function submitTransaction({
-  provider: providers.Web3Provider,  // Signing transactions requires a wallet provider, Aave UI currently uses web3-react (https://github.com/NoahZinsmeister/web3-react) for connecting wallets and accessing the wallet provider
+  provider: providers.Web3Provider,  // Signing transactions requires a wallet provider, Monetaria UI currently uses web3-react (https://github.com/NoahZinsmeister/web3-react) for connecting wallets and accessing the wallet provider
   tx: EthereumTransactionTypeExtended
 }){
   const extendedTxData = await tx.tx();
@@ -778,7 +778,7 @@ token that is supplied, a corresponding amount of aTokens is minted
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool } from '@aave/contract-helpers';
+import { Pool } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -818,14 +818,14 @@ users wallet. This signature can be passed a parameter to `supplyWithPermit` or
 
 Note: Not all tokens are compatible with the ERC-2612 permit functionality. You
 can check the
-<a href="https://github.com/aave/interface/blob/main/src/ui-config/permitConfig.ts" target="_blank">Aave
+<a href="https://github.com/monetaria/interface/blob/main/src/ui-config/permitConfig.ts" target="_blank">Monetaria
 interface config</a> for an updated list of supported tokens by network.
 
 <details>
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool } from '@aave/contract-helpers';
+import { Pool } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -866,7 +866,7 @@ a paramter.
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool } from '@aave/contract-helpers';
+import { Pool } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -905,7 +905,7 @@ User must have a collaterised position (i.e. aTokens in their wallet)
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool, InterestRate } from '@aave/contract-helpers';
+import { Pool, InterestRate } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -948,7 +948,7 @@ also be returned
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool } from '@aave/contract-helpers';
+import { Pool } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -990,7 +990,7 @@ a paramter.
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool } from '@aave/contract-helpers';
+import { Pool } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -1032,7 +1032,7 @@ There is no need for an approval or signature when repaying with aTokens
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool, InterestRate } from '@aave/contract-helpers';
+import { Pool, InterestRate } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -1067,7 +1067,7 @@ Withdraws the underlying asset of an aToken asset.
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool } from '@aave/contract-helpers';
+import { Pool } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -1105,7 +1105,7 @@ modes
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool, InterestRate } from '@aave/contract-helpers';
+import { Pool, InterestRate } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -1139,7 +1139,7 @@ Allows depositors to enable or disable a specific deposit as collateral
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool } from '@aave/contract-helpers';
+import { Pool } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -1172,7 +1172,7 @@ Users can invoke this function to liquidate an undercollateralized position
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool } from '@aave/contract-helpers';
+import { Pool } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -1211,7 +1211,7 @@ Utilizes flashloan to swap to a different collateral asset
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool } from '@aave/contract-helpers';
+import { Pool } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -1267,7 +1267,7 @@ Allows a borrower to repay the open debt with their collateral
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool } from '@aave/contract-helpers';
+import { Pool } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -1327,7 +1327,7 @@ leave user undercollateralized
   <summary>Sample Code</summary>
 
 ```ts
-import { Pool } from '@aave/contract-helpers';
+import { Pool } from '@monetaria/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
@@ -1352,7 +1352,7 @@ Submit transaction as shown [here](#submitting-transactions)
 
 ## Lending Pool V2
 
-Object that contains all the necessary methods to create Aave V2 lending pool
+Object that contains all the necessary methods to create Monetaria V2 lending pool
 transactions
 
 ### deposit
@@ -1364,7 +1364,7 @@ deposited, a corresponding amount of aTokens is minted
   <summary>Sample Code</summary>
 
 ```ts
-import { LendingPool } from '@aave/contract-helpers';
+import { LendingPool } from '@monetaria/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
@@ -1403,7 +1403,7 @@ User must have a collaterised position (i.e. aTokens in their wallet)
   <summary>Sample Code</summary>
 
 ```ts
-import { LendingPool, InterestRate } from '@aave/contract-helpers';
+import { LendingPool, InterestRate } from '@monetaria/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
@@ -1448,7 +1448,7 @@ If the `user` is not approved, an approval transaction will also be returned
   <summary>Sample Code</summary>
 
 ```ts
-import { LendingPool, InterestRate } from '@aave/contract-helpers';
+import { LendingPool, InterestRate } from '@monetaria/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
@@ -1485,7 +1485,7 @@ Withdraws the underlying asset of an aToken asset.
   <summary>Sample Code</summary>
 
 ```ts
-import { LendingPool } from '@aave/contract-helpers';
+import { LendingPool } from '@monetaria/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
@@ -1523,7 +1523,7 @@ modes.
   <summary>Sample Code</summary>
 
 ```ts
-import { LendingPool, InterestRate } from '@aave/contract-helpers';
+import { LendingPool, InterestRate } from '@monetaria/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
@@ -1555,7 +1555,7 @@ Allows depositors to enable or disable a specific deposit as collateral
   <summary>Sample Code</summary>
 
 ```ts
-import { LendingPool, InterestRate } from '@aave/contract-helpers';
+import { LendingPool, InterestRate } from '@monetaria/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
@@ -1591,7 +1591,7 @@ Users can invoke this function to liquidate an undercollateralized position.
   <summary>Sample Code</summary>
 
 ```ts
-import { LendingPool } from '@aave/contract-helpers';
+import { LendingPool } from '@monetaria/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
@@ -1634,7 +1634,7 @@ import {
   LendingPool,
   InterestRate,
   PermitSignature,
-} from '@aave/contract-helpers';
+} from '@monetaria/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
@@ -1694,7 +1694,7 @@ import {
   LendingPool,
   InterestRate,
   PermitSignature,
-} from '@aave/contract-helpers';
+} from '@monetaria/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
@@ -1743,18 +1743,18 @@ Submit transaction(s) as shown [here](#submitting-transactions)
 
 ## Governance V2
 
-Example of how to use functions of the Aave governance service
+Example of how to use functions of the Monetaria governance service
 
 ```ts
-import { AaveGovernanceService } from '@aave/contract-helpers';
+import { MonetariaGovernanceService } from '@monetaria/contract-helpers';
 
 const httpProvider = new Web3.providers.HttpProvider(
   process.env.ETHEREUM_URL || 'https://kovan.infura.io/v3/<project_id>',
 );
 
-const governanceService = new AaveGovernanceService(httpProvider, {
-  GOVERNANCE_ADDRESS: aaveGovernanceV2Address,
-  GOVERNANCE_HELPER_ADDRESS: aaveGovernanceV2HelperAddress,
+const governanceService = new MonetariaGovernanceService(httpProvider, {
+  GOVERNANCE_ADDRESS: monetariaGovernanceV2Address,
+  GOVERNANCE_HELPER_ADDRESS: monetariaGovernanceV2HelperAddress,
   ipfsGateway: IPFS_ENDPOINT,
 });
 ```
@@ -1767,11 +1767,11 @@ Creates a Proposal (needs to be validated by the Proposal Validator)
   <summary>Sample Code</summary>
 
 ```ts
-import { AaveGovernanceService } from '@aave/contract-helpers';
+import { MonetariaGovernanceService } from '@monetaria/contract-helpers';
 
-const governanceService = new AaveGovernanceService(rpcProvider, {
-  GOVERNANCE_ADDRESS: aaveGovernanceV2Address,
-  GOVERNANCE_HELPER_ADDRESS: aaveGovernanceV2HelperAddress,
+const governanceService = new MonetariaGovernanceService(rpcProvider, {
+  GOVERNANCE_ADDRESS: monetariaGovernanceV2Address,
+  GOVERNANCE_HELPER_ADDRESS: monetariaGovernanceV2HelperAddress,
   ipfsGateway: IPFS_ENDPOINT,
 });
 
@@ -1811,11 +1811,11 @@ anybody if the conditions of cancellation on the executor are fulfilled
   <summary>Sample Code</summary>
 
 ```ts
-import { AaveGovernanceService } from '@aave/contract-helpers';
+import { MonetariaGovernanceService } from '@monetaria/contract-helpers';
 
-const governanceService = new AaveGovernanceService(rpcProvider, {
-  GOVERNANCE_ADDRESS: aaveGovernanceV2Address,
-  GOVERNANCE_HELPER_ADDRESS: aaveGovernanceV2HelperAddress,
+const governanceService = new MonetariaGovernanceService(rpcProvider, {
+  GOVERNANCE_ADDRESS: monetariaGovernanceV2Address,
+  GOVERNANCE_HELPER_ADDRESS: monetariaGovernanceV2HelperAddress,
   ipfsGateway: IPFS_ENDPOINT,
 });
 
@@ -1839,11 +1839,11 @@ Queue the proposal (If Proposal Succeeded)
   <summary>Sample Code</summary>
 
 ```ts
-import { AaveGovernanceService } from '@aave/contract-helpers';
+import { MonetariaGovernanceService } from '@monetaria/contract-helpers';
 
-const governanceService = new AaveGovernanceService(rpcProvider, {
-  GOVERNANCE_ADDRESS: aaveGovernanceV2Address,
-  GOVERNANCE_HELPER_ADDRESS: aaveGovernanceV2HelperAddress,
+const governanceService = new MonetariaGovernanceService(rpcProvider, {
+  GOVERNANCE_ADDRESS: monetariaGovernanceV2Address,
+  GOVERNANCE_HELPER_ADDRESS: monetariaGovernanceV2HelperAddress,
   ipfsGateway: IPFS_ENDPOINT,
 });
 
@@ -1870,11 +1870,11 @@ Execute the proposal (If Proposal Queued)
   <summary>Sample Code</summary>
 
 ```ts
-import { AaveGovernanceService } from '@aave/contract-helpers';
+import { MonetariaGovernanceService } from '@monetaria/contract-helpers';
 
-const governanceService = new AaveGovernanceService(rpcProvider, {
-  GOVERNANCE_ADDRESS: aaveGovernanceV2Address,
-  GOVERNANCE_HELPER_ADDRESS: aaveGovernanceV2HelperAddress,
+const governanceService = new MonetariaGovernanceService(rpcProvider, {
+  GOVERNANCE_ADDRESS: monetariaGovernanceV2Address,
+  GOVERNANCE_HELPER_ADDRESS: monetariaGovernanceV2HelperAddress,
   ipfsGateway: IPFS_ENDPOINT,
 });
 
@@ -1898,11 +1898,11 @@ Function allowing msg.sender to vote for/against a proposal
   <summary>Sample Code</summary>
 
 ```ts
-import { AaveGovernanceService } from '@aave/contract-helpers';
+import { MonetariaGovernanceService } from '@monetaria/contract-helpers';
 
-const governanceService = new AaveGovernanceService(rpcProvider, {
-  GOVERNANCE_ADDRESS: aaveGovernanceV2Address,
-  GOVERNANCE_HELPER_ADDRESS: aaveGovernanceV2HelperAddress,
+const governanceService = new MonetariaGovernanceService(rpcProvider, {
+  GOVERNANCE_ADDRESS: monetariaGovernanceV2Address,
+  GOVERNANCE_HELPER_ADDRESS: monetariaGovernanceV2HelperAddress,
   ipfsGateway: IPFS_ENDPOINT,
 });
 
@@ -1929,7 +1929,7 @@ address
   <summary>Sample Code</summary>
 
 ```ts
-import { GovernancePowerDelegationTokenService } from '@aave/contract-helpers';
+import { GovernancePowerDelegationTokenService } from '@monetaria/contract-helpers';
 
 const powerDelegation = new GovernancePowerDelegationTokenService(rpcProvider);
 
@@ -1956,7 +1956,7 @@ address
   <summary>Sample Code</summary>
 
 ```ts
-import { GovernancePowerDelegationTokenService } from '@aave/contract-helpers';
+import { GovernancePowerDelegationTokenService } from '@monetaria/contract-helpers';
 
 const powerDelegation = new GovernancePowerDelegationTokenService(rpcProvider);
 
@@ -1982,18 +1982,18 @@ Submit transaction as shown [here](#submitting-transactions)
 
 ## Faucets
 
-To use the testnet faucets which are compatible with Aave:
+To use the testnet faucets which are compatible with Monetaria:
 
 ### mint
 
-Mint tokens for the usage on the Aave protocol on a test network. The amount of
+Mint tokens for the usage on the Monetaria protocol on a test network. The amount of
 minted tokens is fixed and depends on the token
 
 <details>
   <summary>Sample Code</summary>
 
 ```ts
-import { FaucetService } from '@aave/contract-helpers';
+import { FaucetService } from '@monetaria/contract-helpers';
 
 const faucetService = new FaucetService(provider, faucetAddress);
 
@@ -2025,7 +2025,7 @@ Accessing delegated credit is done by passing the delegator address as the `onBe
   <summary>Sample Code</summary>
 
 ```ts
-import { BaseDebtToken, ERC20Service } from "@aave/contract-helpers";
+import { BaseDebtToken, ERC20Service } from "@monetaria/contract-helpers";
 import { ethers } from "ethers";
 
 // Sample public RPC address for querying polygon mainnet
