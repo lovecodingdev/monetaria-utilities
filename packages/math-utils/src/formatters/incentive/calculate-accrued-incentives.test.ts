@@ -31,13 +31,13 @@ describe('calculateAccruedIncentives', () => {
 
   const depositRewardsRequest: CalculateAccruedIncentivesRequest = {
     principalUserBalance: new BigNumber(
-      userMock.userReserve.scaledATokenBalance,
+      userMock.userReserve.scaledMTokenBalance,
     ),
     reserveIndex: new BigNumber(
       reserveIncentiveMock.reserveIncentive.aIncentiveData.rewardsTokenInformation[0].tokenIncentivesIndex,
     ),
     userIndex: new BigNumber(
-      userIncentiveMock.userIncentive.aTokenIncentivesUserData.userRewardsInformation[0].tokenIncentivesUserIndex,
+      userIncentiveMock.userIncentive.mTokenIncentivesUserData.userRewardsInformation[0].tokenIncentivesUserIndex,
     ),
     precision: 18,
     reserveIndexTimestamp:

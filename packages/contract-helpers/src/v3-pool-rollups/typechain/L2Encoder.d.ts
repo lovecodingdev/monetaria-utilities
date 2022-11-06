@@ -24,7 +24,7 @@ interface L2EncoderInterface extends ethers.utils.Interface {
     'encodeLiquidationCall(address,address,address,uint256,bool)': FunctionFragment;
     'encodeRebalanceStableBorrowRate(address,address)': FunctionFragment;
     'encodeRepayParams(address,uint256,uint256)': FunctionFragment;
-    'encodeRepayWithATokensParams(address,uint256,uint256)': FunctionFragment;
+    'encodeRepayWithMTokensParams(address,uint256,uint256)': FunctionFragment;
     'encodeRepayWithPermitParams(address,uint256,uint256,uint256,uint8,bytes32,bytes32)': FunctionFragment;
     'encodeSetUserUseReserveAsCollateral(address,bool)': FunctionFragment;
     'encodeSupplyParams(address,uint256,uint16)': FunctionFragment;
@@ -51,7 +51,7 @@ interface L2EncoderInterface extends ethers.utils.Interface {
     values: [string, BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
-    functionFragment: 'encodeRepayWithATokensParams',
+    functionFragment: 'encodeRepayWithMTokensParams',
     values: [string, BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
@@ -113,7 +113,7 @@ interface L2EncoderInterface extends ethers.utils.Interface {
     data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: 'encodeRepayWithATokensParams',
+    functionFragment: 'encodeRepayWithMTokensParams',
     data: BytesLike,
   ): Result;
   decodeFunctionResult(
@@ -203,7 +203,7 @@ export class L2Encoder extends BaseContract {
       debtAsset: string,
       user: string,
       debtToCover: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: CallOverrides,
     ): Promise<[string, string]>;
 
@@ -220,7 +220,7 @@ export class L2Encoder extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<[string]>;
 
-    encodeRepayWithATokensParams(
+    encodeRepayWithMTokensParams(
       asset: string,
       amount: BigNumberish,
       interestRateMode: BigNumberish,
@@ -290,7 +290,7 @@ export class L2Encoder extends BaseContract {
     debtAsset: string,
     user: string,
     debtToCover: BigNumberish,
-    receiveAToken: boolean,
+    receiveMToken: boolean,
     overrides?: CallOverrides,
   ): Promise<[string, string]>;
 
@@ -307,7 +307,7 @@ export class L2Encoder extends BaseContract {
     overrides?: CallOverrides,
   ): Promise<string>;
 
-  encodeRepayWithATokensParams(
+  encodeRepayWithMTokensParams(
     asset: string,
     amount: BigNumberish,
     interestRateMode: BigNumberish,
@@ -377,7 +377,7 @@ export class L2Encoder extends BaseContract {
       debtAsset: string,
       user: string,
       debtToCover: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: CallOverrides,
     ): Promise<[string, string]>;
 
@@ -394,7 +394,7 @@ export class L2Encoder extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<string>;
 
-    encodeRepayWithATokensParams(
+    encodeRepayWithMTokensParams(
       asset: string,
       amount: BigNumberish,
       interestRateMode: BigNumberish,
@@ -467,7 +467,7 @@ export class L2Encoder extends BaseContract {
       debtAsset: string,
       user: string,
       debtToCover: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
@@ -484,7 +484,7 @@ export class L2Encoder extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    encodeRepayWithATokensParams(
+    encodeRepayWithMTokensParams(
       asset: string,
       amount: BigNumberish,
       interestRateMode: BigNumberish,
@@ -555,7 +555,7 @@ export class L2Encoder extends BaseContract {
       debtAsset: string,
       user: string,
       debtToCover: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
@@ -572,7 +572,7 @@ export class L2Encoder extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    encodeRepayWithATokensParams(
+    encodeRepayWithMTokensParams(
       asset: string,
       amount: BigNumberish,
       interestRateMode: BigNumberish,

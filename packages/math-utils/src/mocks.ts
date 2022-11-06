@@ -90,7 +90,7 @@ export class UserReserveMock {
     this.config = config;
     this.userReserve = {
       underlyingAsset: '0x0000000000000000000000000000000000000000',
-      scaledATokenBalance: '0',
+      scaledMTokenBalance: '0',
       usageAsCollateralEnabledOnUser: true,
       stableBorrowRate: RAY.multipliedBy(2).toString(),
       scaledVariableDebt: '0',
@@ -156,9 +156,9 @@ export class UserReserveMock {
   }
 
   supply(amount: number | string) {
-    this.userReserve.scaledATokenBalance = new BigNumber(amount)
+    this.userReserve.scaledMTokenBalance = new BigNumber(amount)
       .shiftedBy(this.config.decimals)
-      .plus(this.userReserve.scaledATokenBalance)
+      .plus(this.userReserve.scaledMTokenBalance)
       .toString();
     this.reserve.availableLiquidity = new BigNumber(amount)
       .shiftedBy(this.config.decimals)
@@ -268,7 +268,7 @@ export class UserIncentiveMock {
   constructor() {
     this.userIncentive = {
       underlyingAsset: '0x0000000000000000000000000000000000000000',
-      aTokenIncentivesUserData: {
+      mTokenIncentivesUserData: {
         tokenAddress: '0x0000000000000000000000000000000000000000',
         incentiveControllerAddress:
           '0x0000000000000000000000000000000000000000',

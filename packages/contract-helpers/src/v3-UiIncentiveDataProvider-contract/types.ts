@@ -46,7 +46,7 @@ export interface UserIncentiveData {
 }
 export interface UserReservesIncentivesData {
   underlyingAsset: string;
-  aTokenIncentivesUserData: UserIncentiveData;
+  mTokenIncentivesUserData: UserIncentiveData;
   vTokenIncentivesUserData: UserIncentiveData;
   sTokenIncentivesUserData: UserIncentiveData;
 }
@@ -106,7 +106,7 @@ export interface UserIncentiveDataHumanized {
 export interface UserReservesIncentivesDataHumanized {
   id: string;
   underlyingAsset: string;
-  aTokenIncentivesUserData: UserIncentiveDataHumanized;
+  mTokenIncentivesUserData: UserIncentiveDataHumanized;
   vTokenIncentivesUserData: UserIncentiveDataHumanized;
   sTokenIncentivesUserData: UserIncentiveDataHumanized;
 }

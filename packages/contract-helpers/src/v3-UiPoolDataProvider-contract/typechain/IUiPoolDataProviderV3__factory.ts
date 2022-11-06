@@ -118,7 +118,7 @@ const _abi = [
           },
           {
             internalType: 'address',
-            name: 'aTokenAddress',
+            name: 'mTokenAddress',
             type: 'address',
           },
           {
@@ -365,7 +365,7 @@ const _abi = [
           },
           {
             internalType: 'uint256',
-            name: 'scaledATokenBalance',
+            name: 'scaledMTokenBalance',
             type: 'uint256',
           },
           {

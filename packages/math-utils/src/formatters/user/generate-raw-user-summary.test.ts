@@ -52,8 +52,8 @@ describe('generateRawUserSummary', () => {
     generateUserReserveSummary({
       userReserve: {
         ...usdcUserMock.userReserve,
-        scaledATokenBalance: (
-          Number(usdcUserMock.userReserve.scaledATokenBalance) * 2
+        scaledMTokenBalance: (
+          Number(usdcUserMock.userReserve.scaledMTokenBalance) * 2
         ).toString(),
         reserve: usdcUserMock.reserve,
       },

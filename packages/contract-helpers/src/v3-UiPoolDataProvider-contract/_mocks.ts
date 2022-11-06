@@ -55,7 +55,7 @@ export const reservesMock: ReservesData = {
         _isBigNumber: true,
       }),
       lastUpdateTimestamp: 1631772892,
-      aTokenAddress: '0xb8a16bbab34FA7A5C09Ec7679EAfb8fEC06897bc',
+      mTokenAddress: '0xb8a16bbab34FA7A5C09Ec7679EAfb8fEC06897bc',
       stableDebtTokenAddress: '0x9157d57DC97A7AFFC7b0a78E78fe25e1401B1dCc',
       variableDebtTokenAddress: '0xb7b7AF565495670713C92B8848fC8A650a968F81',
       interestRateStrategyAddress: '0x796ec26fc7df8D81BCB5BABF74ccdE0E2B122164',
@@ -201,7 +201,7 @@ export const reservesMock: ReservesData = {
         _isBigNumber: true,
       }),
       lastUpdateTimestamp: 1631772892,
-      aTokenAddress: '0xb8a16bbab34FA7A5C09Ec7679EAfb8fEC06897bc',
+      mTokenAddress: '0xb8a16bbab34FA7A5C09Ec7679EAfb8fEC06897bc',
       stableDebtTokenAddress: '0x9157d57DC97A7AFFC7b0a78E78fe25e1401B1dCc',
       variableDebtTokenAddress: '0xb7b7AF565495670713C92B8848fC8A650a968F81',
       interestRateStrategyAddress: '0x796ec26fc7df8D81BCB5BABF74ccdE0E2B122164',
@@ -318,7 +318,7 @@ export const userReservesMock: UserReserveData = {
   0: [
     {
       underlyingAsset: '0xB597cd8D3217ea6477232F9217fa70837ff667Af',
-      scaledATokenBalance: BigNumber.from({
+      scaledMTokenBalance: BigNumber.from({
         _hex: '0x0',
         _isBigNumber: true,
       }),

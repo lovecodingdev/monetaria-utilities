@@ -28,7 +28,7 @@ export interface RewardInfoHumanized {
 
 export interface UserReservesIncentivesDataHumanized {
   underlyingAsset: string;
-  aTokenIncentivesUserData: UserIncentiveDataHumanized;
+  mTokenIncentivesUserData: UserIncentiveDataHumanized;
   vTokenIncentivesUserData: UserIncentiveDataHumanized;
   sTokenIncentivesUserData: UserIncentiveDataHumanized;
 }
@@ -51,7 +51,7 @@ export interface UserRewardInfoHumanized {
 }
 
 export interface UserReserveCalculationData {
-  scaledATokenBalance: string;
+  scaledMTokenBalance: string;
   scaledVariableDebt: string;
   principalStableDebt: string;
   reserve: {

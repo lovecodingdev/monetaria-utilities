@@ -67,8 +67,7 @@ export interface UiIncentiveDataProviderContext {
 
 export class UiIncentiveDataProvider
   extends BaseService<IUiIncentiveDataProviderV3>
-  implements UiIncentiveDataProviderInterface
-{
+  implements UiIncentiveDataProviderInterface {
   readonly uiIncentiveDataProviderAddress: string;
 
   readonly chainId: number;
@@ -182,8 +181,8 @@ export class UiIncentiveDataProvider
     return response.map(r => ({
       id: `${this.chainId}-${user}-${r.underlyingAsset}-${lendingPoolAddressProvider}`.toLowerCase(),
       underlyingAsset: r.underlyingAsset.toLowerCase(),
-      aTokenIncentivesUserData: this._formatUserIncentiveData(
-        r.aTokenIncentivesUserData,
+      mTokenIncentivesUserData: this._formatUserIncentiveData(
+        r.mTokenIncentivesUserData,
       ),
       vTokenIncentivesUserData: this._formatUserIncentiveData(
         r.vTokenIncentivesUserData,

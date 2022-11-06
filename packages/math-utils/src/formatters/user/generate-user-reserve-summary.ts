@@ -47,7 +47,7 @@ export function generateUserReserveSummary<
   const poolReserve: FormatReserveUSDResponse = userReserve.reserve;
   const { priceInMarketReferenceCurrency, decimals } = poolReserve;
   const underlyingBalance = getLinearBalance({
-    balance: userReserve.scaledATokenBalance,
+    balance: userReserve.scaledMTokenBalance,
     index: poolReserve.liquidityIndex,
     rate: poolReserve.liquidityRate,
     lastUpdateTimestamp: poolReserve.lastUpdateTimestamp,

@@ -24,7 +24,7 @@ interface IL2PoolInterface extends ethers.utils.Interface {
     'liquidationCall(bytes32,bytes32)': FunctionFragment;
     'rebalanceStableBorrowRate(bytes32)': FunctionFragment;
     'repay(bytes32)': FunctionFragment;
-    'repayWithATokens(bytes32)': FunctionFragment;
+    'repayWithMTokens(bytes32)': FunctionFragment;
     'repayWithPermit(bytes32,bytes32,bytes32)': FunctionFragment;
     'setUserUseReserveAsCollateral(bytes32)': FunctionFragment;
     'supply(bytes32)': FunctionFragment;
@@ -44,7 +44,7 @@ interface IL2PoolInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: 'repay', values: [BytesLike]): string;
   encodeFunctionData(
-    functionFragment: 'repayWithATokens',
+    functionFragment: 'repayWithMTokens',
     values: [BytesLike],
   ): string;
   encodeFunctionData(
@@ -77,7 +77,7 @@ interface IL2PoolInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: 'repay', data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: 'repayWithATokens',
+    functionFragment: 'repayWithMTokens',
     data: BytesLike,
   ): Result;
   decodeFunctionResult(
@@ -167,7 +167,7 @@ export class IL2Pool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    repayWithATokens(
+    repayWithMTokens(
       args: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -228,7 +228,7 @@ export class IL2Pool extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  repayWithATokens(
+  repayWithMTokens(
     args: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -283,7 +283,7 @@ export class IL2Pool extends BaseContract {
 
     repay(args: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
-    repayWithATokens(
+    repayWithMTokens(
       args: BytesLike,
       overrides?: CallOverrides,
     ): Promise<BigNumber>;
@@ -341,7 +341,7 @@ export class IL2Pool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    repayWithATokens(
+    repayWithMTokens(
       args: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -403,7 +403,7 @@ export class IL2Pool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    repayWithATokens(
+    repayWithMTokens(
       args: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

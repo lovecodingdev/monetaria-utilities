@@ -91,7 +91,7 @@ export interface ReserveIncentiveWithFeedsResponse {
 
 export interface UserReserveIncentiveDataResponse {
   underlyingAsset: string;
-  aTokenIncentivesUserData: IncentiveUserData;
+  mTokenIncentivesUserData: IncentiveUserData;
   vTokenIncentivesUserData: IncentiveUserData;
   sTokenIncentivesUserData: IncentiveUserData;
   0: string;
@@ -103,7 +103,7 @@ export interface UserReserveIncentiveDataResponse {
 export interface UserReserveIncentiveDataHumanizedResponse {
   id: string;
   underlyingAsset: string;
-  aTokenIncentivesUserData: IncentiveUserDataHumanized;
+  mTokenIncentivesUserData: IncentiveUserDataHumanized;
   vTokenIncentivesUserData: IncentiveUserDataHumanized;
   sTokenIncentivesUserData: IncentiveUserDataHumanized;
 }

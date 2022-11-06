@@ -36,7 +36,7 @@ export type WETHWithdrawParamsType = {
   lendingPool: tEthereumAddress;
   user: tEthereumAddress;
   amount: string;
-  aTokenAddress: tEthereumAddress;
+  mTokenAddress: tEthereumAddress;
   onBehalfOf?: tEthereumAddress;
 };
 
@@ -72,8 +72,7 @@ export interface WETHGatewayInterface {
 
 export class WETHGatewayService
   extends BaseService<IWETHGateway>
-  implements WETHGatewayInterface
-{
+  implements WETHGatewayInterface {
   readonly wethGatewayAddress: string;
 
   readonly baseDebtTokenService: BaseDebtTokenInterface;
@@ -215,13 +214,13 @@ export class WETHGatewayService
     @isEthAddress('user')
     @isEthAddress('onBehalfOf')
     @isPositiveOrMinusOneAmount('amount')
-    @isEthAddress('aTokenAddress')
+    @isEthAddress('mTokenAddress')
     {
       lendingPool,
       user,
       amount,
       onBehalfOf,
-      aTokenAddress,
+      mTokenAddress,
     }: WETHWithdrawParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     const txs: EthereumTransactionTypeExtended[] = [];
@@ -232,7 +231,7 @@ export class WETHGatewayService
         : valueToWei(amount, 18);
 
     const approved: boolean = await isApproved({
-      token: aTokenAddress,
+      token: mTokenAddress,
       user,
       spender: this.wethGatewayAddress,
       amount,
@@ -241,7 +240,7 @@ export class WETHGatewayService
     if (!approved) {
       const approveTx: EthereumTransactionTypeExtended = approve({
         user,
-        token: aTokenAddress,
+        token: mTokenAddress,
         spender: this.wethGatewayAddress,
         amount: constants.MaxUint256.toString(),
       });

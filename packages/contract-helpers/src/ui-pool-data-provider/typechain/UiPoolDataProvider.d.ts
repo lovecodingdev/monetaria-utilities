@@ -127,7 +127,7 @@ export class UiPoolDataProvider extends Contract {
         variableBorrowRate: BigNumber;
         stableBorrowRate: BigNumber;
         lastUpdateTimestamp: number;
-        aTokenAddress: string;
+        mTokenAddress: string;
         stableDebtTokenAddress: string;
         variableDebtTokenAddress: string;
         interestRateStrategyAddress: string;
@@ -211,7 +211,7 @@ export class UiPoolDataProvider extends Contract {
         variableBorrowRate: BigNumber;
         stableBorrowRate: BigNumber;
         lastUpdateTimestamp: number;
-        aTokenAddress: string;
+        mTokenAddress: string;
         stableDebtTokenAddress: string;
         variableDebtTokenAddress: string;
         interestRateStrategyAddress: string;
@@ -292,7 +292,7 @@ export class UiPoolDataProvider extends Contract {
     ): Promise<{
       0: {
         underlyingAsset: string;
-        scaledATokenBalance: BigNumber;
+        scaledMTokenBalance: BigNumber;
         usageAsCollateralEnabledOnUser: boolean;
         stableBorrowRate: BigNumber;
         scaledVariableDebt: BigNumber;
@@ -315,7 +315,7 @@ export class UiPoolDataProvider extends Contract {
     ): Promise<{
       0: {
         underlyingAsset: string;
-        scaledATokenBalance: BigNumber;
+        scaledMTokenBalance: BigNumber;
         usageAsCollateralEnabledOnUser: boolean;
         stableBorrowRate: BigNumber;
         scaledVariableDebt: BigNumber;
@@ -384,7 +384,7 @@ export class UiPoolDataProvider extends Contract {
       variableBorrowRate: BigNumber;
       stableBorrowRate: BigNumber;
       lastUpdateTimestamp: number;
-      aTokenAddress: string;
+      mTokenAddress: string;
       stableDebtTokenAddress: string;
       variableDebtTokenAddress: string;
       interestRateStrategyAddress: string;
@@ -468,7 +468,7 @@ export class UiPoolDataProvider extends Contract {
       variableBorrowRate: BigNumber;
       stableBorrowRate: BigNumber;
       lastUpdateTimestamp: number;
-      aTokenAddress: string;
+      mTokenAddress: string;
       stableDebtTokenAddress: string;
       variableDebtTokenAddress: string;
       interestRateStrategyAddress: string;
@@ -545,7 +545,7 @@ export class UiPoolDataProvider extends Contract {
   ): Promise<
     {
       underlyingAsset: string;
-      scaledATokenBalance: BigNumber;
+      scaledMTokenBalance: BigNumber;
       usageAsCollateralEnabledOnUser: boolean;
       stableBorrowRate: BigNumber;
       scaledVariableDebt: BigNumber;
@@ -568,7 +568,7 @@ export class UiPoolDataProvider extends Contract {
   ): Promise<
     {
       underlyingAsset: string;
-      scaledATokenBalance: BigNumber;
+      scaledMTokenBalance: BigNumber;
       usageAsCollateralEnabledOnUser: boolean;
       stableBorrowRate: BigNumber;
       scaledVariableDebt: BigNumber;
@@ -629,7 +629,7 @@ export class UiPoolDataProvider extends Contract {
         variableBorrowRate: BigNumber;
         stableBorrowRate: BigNumber;
         lastUpdateTimestamp: number;
-        aTokenAddress: string;
+        mTokenAddress: string;
         stableDebtTokenAddress: string;
         variableDebtTokenAddress: string;
         interestRateStrategyAddress: string;
@@ -713,7 +713,7 @@ export class UiPoolDataProvider extends Contract {
         variableBorrowRate: BigNumber;
         stableBorrowRate: BigNumber;
         lastUpdateTimestamp: number;
-        aTokenAddress: string;
+        mTokenAddress: string;
         stableDebtTokenAddress: string;
         variableDebtTokenAddress: string;
         interestRateStrategyAddress: string;
@@ -790,7 +790,7 @@ export class UiPoolDataProvider extends Contract {
     ): Promise<
       {
         underlyingAsset: string;
-        scaledATokenBalance: BigNumber;
+        scaledMTokenBalance: BigNumber;
         usageAsCollateralEnabledOnUser: boolean;
         stableBorrowRate: BigNumber;
         scaledVariableDebt: BigNumber;
@@ -813,7 +813,7 @@ export class UiPoolDataProvider extends Contract {
     ): Promise<
       {
         underlyingAsset: string;
-        scaledATokenBalance: BigNumber;
+        scaledMTokenBalance: BigNumber;
         usageAsCollateralEnabledOnUser: boolean;
         stableBorrowRate: BigNumber;
         scaledVariableDebt: BigNumber;

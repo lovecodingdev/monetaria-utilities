@@ -185,7 +185,7 @@ export class ILendingPool extends Contract {
       reserve: string,
       user: string,
       purchaseAmount: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: Overrides,
     ): Promise<ContractTransaction>;
 
@@ -194,7 +194,7 @@ export class ILendingPool extends Contract {
       reserve: string,
       user: string,
       purchaseAmount: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: Overrides,
     ): Promise<ContractTransaction>;
 
@@ -318,7 +318,7 @@ export class ILendingPool extends Contract {
     reserve: string,
     user: string,
     purchaseAmount: BigNumberish,
-    receiveAToken: boolean,
+    receiveMToken: boolean,
     overrides?: Overrides,
   ): Promise<ContractTransaction>;
 
@@ -327,7 +327,7 @@ export class ILendingPool extends Contract {
     reserve: string,
     user: string,
     purchaseAmount: BigNumberish,
-    receiveAToken: boolean,
+    receiveMToken: boolean,
     overrides?: Overrides,
   ): Promise<ContractTransaction>;
 
@@ -451,7 +451,7 @@ export class ILendingPool extends Contract {
       reserve: string,
       user: string,
       purchaseAmount: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: CallOverrides,
     ): Promise<void>;
 
@@ -460,7 +460,7 @@ export class ILendingPool extends Contract {
       reserve: string,
       user: string,
       purchaseAmount: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: CallOverrides,
     ): Promise<void>;
 
@@ -587,7 +587,7 @@ export class ILendingPool extends Contract {
       reserve: string,
       user: string,
       purchaseAmount: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: Overrides,
     ): Promise<BigNumber>;
 
@@ -596,7 +596,7 @@ export class ILendingPool extends Contract {
       reserve: string,
       user: string,
       purchaseAmount: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: Overrides,
     ): Promise<BigNumber>;
 
@@ -725,7 +725,7 @@ export class ILendingPool extends Contract {
       reserve: string,
       user: string,
       purchaseAmount: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: Overrides,
     ): Promise<PopulatedTransaction>;
 
@@ -734,7 +734,7 @@ export class ILendingPool extends Contract {
       reserve: string,
       user: string,
       purchaseAmount: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: Overrides,
     ): Promise<PopulatedTransaction>;
 

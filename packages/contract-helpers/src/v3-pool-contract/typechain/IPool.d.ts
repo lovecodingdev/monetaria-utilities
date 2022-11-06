@@ -49,7 +49,7 @@ interface IPoolInterface extends ethers.utils.Interface {
     'mintUnbacked(address,uint256,address,uint16)': FunctionFragment;
     'rebalanceStableBorrowRate(address,address)': FunctionFragment;
     'repay(address,uint256,uint256,address)': FunctionFragment;
-    'repayWithATokens(address,uint256,uint256)': FunctionFragment;
+    'repayWithMTokens(address,uint256,uint256)': FunctionFragment;
     'repayWithPermit(address,uint256,uint256,address,uint256,uint8,bytes32,bytes32)': FunctionFragment;
     'setConfiguration(address,uint256)': FunctionFragment;
     'setReserveInterestRateStrategyAddress(address,address)': FunctionFragment;
@@ -194,7 +194,7 @@ interface IPoolInterface extends ethers.utils.Interface {
     values: [string, BigNumberish, BigNumberish, string],
   ): string;
   encodeFunctionData(
-    functionFragment: 'repayWithATokens',
+    functionFragment: 'repayWithMTokens',
     values: [string, BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
@@ -365,7 +365,7 @@ interface IPoolInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: 'repay', data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: 'repayWithATokens',
+    functionFragment: 'repayWithMTokens',
     data: BytesLike,
   ): Result;
   decodeFunctionResult(
@@ -495,7 +495,7 @@ export type LiquidationCallEvent = TypedEvent<
     debtToCover: BigNumber;
     liquidatedCollateralAmount: BigNumber;
     liquidator: string;
-    receiveAToken: boolean;
+    receiveMToken: boolean;
   }
 >;
 
@@ -523,7 +523,7 @@ export type RepayEvent = TypedEvent<
     user: string;
     repayer: string;
     amount: BigNumber;
-    useATokens: boolean;
+    useMTokens: boolean;
   }
 >;
 
@@ -758,7 +758,7 @@ export class IPool extends BaseContract {
           currentStableBorrowRate: BigNumber;
           lastUpdateTimestamp: number;
           id: number;
-          aTokenAddress: string;
+          mTokenAddress: string;
           stableDebtTokenAddress: string;
           variableDebtTokenAddress: string;
           interestRateStrategyAddress: string;
@@ -804,7 +804,7 @@ export class IPool extends BaseContract {
 
     initReserve(
       asset: string,
-      aTokenAddress: string,
+      mTokenAddress: string,
       stableDebtAddress: string,
       variableDebtAddress: string,
       interestRateStrategyAddress: string,
@@ -816,7 +816,7 @@ export class IPool extends BaseContract {
       debtAsset: string,
       user: string,
       debtToCover: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -847,7 +847,7 @@ export class IPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    repayWithATokens(
+    repayWithMTokens(
       asset: string,
       amount: BigNumberish,
       interestRateMode: BigNumberish,
@@ -1066,7 +1066,7 @@ export class IPool extends BaseContract {
       currentStableBorrowRate: BigNumber;
       lastUpdateTimestamp: number;
       id: number;
-      aTokenAddress: string;
+      mTokenAddress: string;
       stableDebtTokenAddress: string;
       variableDebtTokenAddress: string;
       interestRateStrategyAddress: string;
@@ -1111,7 +1111,7 @@ export class IPool extends BaseContract {
 
   initReserve(
     asset: string,
-    aTokenAddress: string,
+    mTokenAddress: string,
     stableDebtAddress: string,
     variableDebtAddress: string,
     interestRateStrategyAddress: string,
@@ -1123,7 +1123,7 @@ export class IPool extends BaseContract {
     debtAsset: string,
     user: string,
     debtToCover: BigNumberish,
-    receiveAToken: boolean,
+    receiveMToken: boolean,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -1154,7 +1154,7 @@ export class IPool extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  repayWithATokens(
+  repayWithMTokens(
     asset: string,
     amount: BigNumberish,
     interestRateMode: BigNumberish,
@@ -1372,7 +1372,7 @@ export class IPool extends BaseContract {
         currentStableBorrowRate: BigNumber;
         lastUpdateTimestamp: number;
         id: number;
-        aTokenAddress: string;
+        mTokenAddress: string;
         stableDebtTokenAddress: string;
         variableDebtTokenAddress: string;
         interestRateStrategyAddress: string;
@@ -1417,7 +1417,7 @@ export class IPool extends BaseContract {
 
     initReserve(
       asset: string,
-      aTokenAddress: string,
+      mTokenAddress: string,
       stableDebtAddress: string,
       variableDebtAddress: string,
       interestRateStrategyAddress: string,
@@ -1429,7 +1429,7 @@ export class IPool extends BaseContract {
       debtAsset: string,
       user: string,
       debtToCover: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: CallOverrides,
     ): Promise<void>;
 
@@ -1457,7 +1457,7 @@ export class IPool extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    repayWithATokens(
+    repayWithMTokens(
       asset: string,
       amount: BigNumberish,
       interestRateMode: BigNumberish,
@@ -1672,7 +1672,7 @@ export class IPool extends BaseContract {
       debtToCover?: null,
       liquidatedCollateralAmount?: null,
       liquidator?: null,
-      receiveAToken?: null,
+      receiveMToken?: null,
     ): TypedEventFilter<
       [string, string, string, BigNumber, BigNumber, string, boolean],
       {
@@ -1682,7 +1682,7 @@ export class IPool extends BaseContract {
         debtToCover: BigNumber;
         liquidatedCollateralAmount: BigNumber;
         liquidator: string;
-        receiveAToken: boolean;
+        receiveMToken: boolean;
       }
     >;
 
@@ -1693,7 +1693,7 @@ export class IPool extends BaseContract {
       debtToCover?: null,
       liquidatedCollateralAmount?: null,
       liquidator?: null,
-      receiveAToken?: null,
+      receiveMToken?: null,
     ): TypedEventFilter<
       [string, string, string, BigNumber, BigNumber, string, boolean],
       {
@@ -1703,7 +1703,7 @@ export class IPool extends BaseContract {
         debtToCover: BigNumber;
         liquidatedCollateralAmount: BigNumber;
         liquidator: string;
-        receiveAToken: boolean;
+        receiveMToken: boolean;
       }
     >;
 
@@ -1772,7 +1772,7 @@ export class IPool extends BaseContract {
       user?: string | null,
       repayer?: string | null,
       amount?: null,
-      useATokens?: null,
+      useMTokens?: null,
     ): TypedEventFilter<
       [string, string, string, BigNumber, boolean],
       {
@@ -1780,7 +1780,7 @@ export class IPool extends BaseContract {
         user: string;
         repayer: string;
         amount: BigNumber;
-        useATokens: boolean;
+        useMTokens: boolean;
       }
     >;
 
@@ -1789,7 +1789,7 @@ export class IPool extends BaseContract {
       user?: string | null,
       repayer?: string | null,
       amount?: null,
-      useATokens?: null,
+      useMTokens?: null,
     ): TypedEventFilter<
       [string, string, string, BigNumber, boolean],
       {
@@ -1797,7 +1797,7 @@ export class IPool extends BaseContract {
         user: string;
         repayer: string;
         amount: BigNumber;
-        useATokens: boolean;
+        useMTokens: boolean;
       }
     >;
 
@@ -2071,7 +2071,7 @@ export class IPool extends BaseContract {
 
     initReserve(
       asset: string,
-      aTokenAddress: string,
+      mTokenAddress: string,
       stableDebtAddress: string,
       variableDebtAddress: string,
       interestRateStrategyAddress: string,
@@ -2083,7 +2083,7 @@ export class IPool extends BaseContract {
       debtAsset: string,
       user: string,
       debtToCover: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -2114,7 +2114,7 @@ export class IPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    repayWithATokens(
+    repayWithMTokens(
       asset: string,
       amount: BigNumberish,
       interestRateMode: BigNumberish,
@@ -2341,7 +2341,7 @@ export class IPool extends BaseContract {
 
     initReserve(
       asset: string,
-      aTokenAddress: string,
+      mTokenAddress: string,
       stableDebtAddress: string,
       variableDebtAddress: string,
       interestRateStrategyAddress: string,
@@ -2353,7 +2353,7 @@ export class IPool extends BaseContract {
       debtAsset: string,
       user: string,
       debtToCover: BigNumberish,
-      receiveAToken: boolean,
+      receiveMToken: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
@@ -2384,7 +2384,7 @@ export class IPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    repayWithATokens(
+    repayWithMTokens(
       asset: string,
       amount: BigNumberish,
       interestRateMode: BigNumberish,

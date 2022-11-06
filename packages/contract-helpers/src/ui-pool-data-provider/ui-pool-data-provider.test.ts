@@ -147,7 +147,7 @@ describe('UiPoolDataProvider', () => {
             variableBorrowRate: '0',
             stableBorrowRate: '0',
             lastUpdateTimestamp: 1631772892,
-            aTokenAddress: '0xb8a16bbab34FA7A5C09Ec7679EAfb8fEC06897bc',
+            mTokenAddress: '0xb8a16bbab34FA7A5C09Ec7679EAfb8fEC06897bc',
             stableDebtTokenAddress:
               '0x9157d57DC97A7AFFC7b0a78E78fe25e1401B1dCc',
             variableDebtTokenAddress:
@@ -186,7 +186,7 @@ describe('UiPoolDataProvider', () => {
             variableBorrowRate: '0',
             stableBorrowRate: '0',
             lastUpdateTimestamp: 1631772892,
-            aTokenAddress: '0xb8a16bbab34FA7A5C09Ec7679EAfb8fEC06897bc',
+            mTokenAddress: '0xb8a16bbab34FA7A5C09Ec7679EAfb8fEC06897bc',
             stableDebtTokenAddress:
               '0x9157d57DC97A7AFFC7b0a78E78fe25e1401B1dCc',
             variableDebtTokenAddress:
@@ -244,7 +244,7 @@ describe('UiPoolDataProvider', () => {
         {
           id: '137-0x88757f2f99175387ab4c6a4b3067c77a695b0349-0xb597cd8d3217ea6477232f9217fa70837ff667af-0x88757f2f99175387ab4c6a4b3067c77a695b0349',
           principalStableDebt: '0',
-          scaledATokenBalance: '0',
+          scaledMTokenBalance: '0',
           scaledVariableDebt: '0',
           stableBorrowLastUpdateTimestamp: 0,
           stableBorrowRate: '0',

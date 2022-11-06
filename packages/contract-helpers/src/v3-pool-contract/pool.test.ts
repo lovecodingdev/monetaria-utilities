@@ -1325,7 +1325,7 @@ describe('Pool', () => {
     const user = '0x0000000000000000000000000000000000000006';
     const reserve = '0x0000000000000000000000000000000000000007';
     const onBehalfOf = '0x0000000000000000000000000000000000000008';
-    const aTokenAddress = '0x0000000000000000000000000000000000000009';
+    const mTokenAddress = '0x0000000000000000000000000000000000000009';
     const amount = '123.456';
     const decimals = 18;
 
@@ -1346,7 +1346,7 @@ describe('Pool', () => {
         reserve,
         amount,
         onBehalfOf,
-        aTokenAddress,
+        mTokenAddress,
       });
       expect(withdrawEthSpy).toHaveBeenCalled();
     });
@@ -1360,7 +1360,7 @@ describe('Pool', () => {
         user,
         reserve,
         amount,
-        aTokenAddress,
+        mTokenAddress,
       });
 
       expect(decimalsSpy).toHaveBeenCalled();
@@ -1408,7 +1408,7 @@ describe('Pool', () => {
         user,
         reserve,
         amount,
-        aTokenAddress,
+        mTokenAddress,
         useOptimizedPath: true,
       });
 
@@ -1428,7 +1428,7 @@ describe('Pool', () => {
         reserve,
         amount,
         onBehalfOf,
-        aTokenAddress,
+        mTokenAddress,
       });
 
       expect(decimalsSpy).toHaveBeenCalled();
@@ -1463,7 +1463,7 @@ describe('Pool', () => {
       );
       expect(gasPrice?.gasPrice).toEqual('1');
     });
-    it('Expects to fail for eth withdraw if not aTokenAddress is passed', async () => {
+    it('Expects to fail for eth withdraw if not mTokenAddress is passed', async () => {
       const reserve = API_ETH_MOCK_ADDRESS;
       const poolInstance = new Pool(provider, config);
 
@@ -1485,7 +1485,7 @@ describe('Pool', () => {
         reserve,
         amount,
         onBehalfOf,
-        aTokenAddress,
+        mTokenAddress,
       });
       expect(txObj).toEqual([]);
     });
@@ -1498,7 +1498,7 @@ describe('Pool', () => {
           reserve,
           amount,
           onBehalfOf,
-          aTokenAddress,
+          mTokenAddress,
         }),
       ).rejects.toThrowError(
         `Address: ${user} is not a valid ethereum Address`,
@@ -1513,7 +1513,7 @@ describe('Pool', () => {
           reserve,
           amount,
           onBehalfOf,
-          aTokenAddress,
+          mTokenAddress,
         }),
       ).rejects.toThrowError(
         `Address: ${reserve} is not a valid ethereum Address`,
@@ -1528,25 +1528,25 @@ describe('Pool', () => {
           reserve,
           amount,
           onBehalfOf,
-          aTokenAddress,
+          mTokenAddress,
         }),
       ).rejects.toThrowError(
         `Address: ${onBehalfOf} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when aTokenAddress not and eth address', async () => {
+    it('Expects to fail when mTokenAddress not and eth address', async () => {
       const poolInstance = new Pool(provider, config);
-      const aTokenAddress = 'asdf';
+      const mTokenAddress = 'asdf';
       await expect(async () =>
         poolInstance.withdraw({
           user,
           reserve,
           amount,
           onBehalfOf,
-          aTokenAddress,
+          mTokenAddress,
         }),
       ).rejects.toThrowError(
-        `Address: ${aTokenAddress} is not a valid ethereum Address`,
+        `Address: ${mTokenAddress} is not a valid ethereum Address`,
       );
     });
     it('Expects to fail when amount not positive', async () => {
@@ -1558,7 +1558,7 @@ describe('Pool', () => {
           reserve,
           amount,
           onBehalfOf,
-          aTokenAddress,
+          mTokenAddress,
         }),
       ).rejects.toThrowError(`Amount: ${amount} needs to be greater than 0`);
     });
@@ -1571,7 +1571,7 @@ describe('Pool', () => {
           reserve,
           amount,
           onBehalfOf,
-          aTokenAddress,
+          mTokenAddress,
         }),
       ).rejects.toThrowError(`Amount: ${amount} needs to be greater than 0`);
     });
@@ -2900,7 +2900,7 @@ describe('Pool', () => {
     const debtReserve = '0x0000000000000000000000000000000000000008';
     const collateralReserve = '0x0000000000000000000000000000000000000009';
     const purchaseAmount = '123.456';
-    const getAToken = true;
+    const getMToken = true;
     const liquidateAll = true;
     const decimals = 18;
 
@@ -2921,7 +2921,7 @@ describe('Pool', () => {
         debtReserve,
         collateralReserve,
         purchaseAmount,
-        getAToken,
+        getMToken,
         liquidateAll,
       });
 
@@ -2946,7 +2946,7 @@ describe('Pool', () => {
       expect(decoded[1]).toEqual(debtReserve);
       expect(decoded[2]).toEqual(liquidatedUser);
       expect(decoded[3]).toEqual(constants.MaxUint256);
-      expect(decoded[4]).toEqual(getAToken);
+      expect(decoded[4]).toEqual(getMToken);
 
       // gas price
       const gasPrice: GasType | null = await txObj.gas();
@@ -2969,7 +2969,7 @@ describe('Pool', () => {
         debtReserve,
         collateralReserve,
         purchaseAmount,
-        getAToken,
+        getMToken,
         liquidateAll,
         useOptimizedPath: true,
       });
@@ -2979,7 +2979,7 @@ describe('Pool', () => {
 
       expect(liquidationCallTxObj.length).toEqual(0);
     });
-    it('Expects the tx object passing all params but not passing getAToken and no approval needed', async () => {
+    it('Expects the tx object passing all params but not passing getMToken and no approval needed', async () => {
       const poolInstance = new Pool(provider, config);
       const isApprovedSpy = jest
         .spyOn(poolInstance.erc20Service, 'isApproved')
@@ -3048,7 +3048,7 @@ describe('Pool', () => {
         debtReserve,
         collateralReserve,
         purchaseAmount,
-        getAToken,
+        getMToken,
       });
 
       expect(approveSpy).toHaveBeenCalled();
@@ -3076,7 +3076,7 @@ describe('Pool', () => {
       expect(decoded[3]).toEqual(
         BigNumber.from(valueToWei(purchaseAmount, decimals)),
       );
-      expect(decoded[4]).toEqual(getAToken);
+      expect(decoded[4]).toEqual(getMToken);
 
       // gas price
       const gasPrice: GasType | null = await txObj.gas();
@@ -3094,7 +3094,7 @@ describe('Pool', () => {
         debtReserve,
         collateralReserve,
         purchaseAmount,
-        getAToken,
+        getMToken,
         liquidateAll,
       });
       expect(txObj).toEqual([]);
@@ -3109,7 +3109,7 @@ describe('Pool', () => {
           debtReserve,
           collateralReserve,
           purchaseAmount,
-          getAToken,
+          getMToken,
           liquidateAll,
         }),
       ).rejects.toThrowError(
@@ -3126,7 +3126,7 @@ describe('Pool', () => {
           debtReserve,
           collateralReserve,
           purchaseAmount,
-          getAToken,
+          getMToken,
           liquidateAll,
         }),
       ).rejects.toThrowError(
@@ -3143,7 +3143,7 @@ describe('Pool', () => {
           debtReserve,
           collateralReserve,
           purchaseAmount,
-          getAToken,
+          getMToken,
           liquidateAll,
         }),
       ).rejects.toThrowError(
@@ -3160,7 +3160,7 @@ describe('Pool', () => {
           debtReserve,
           collateralReserve,
           purchaseAmount,
-          getAToken,
+          getMToken,
           liquidateAll,
         }),
       ).rejects.toThrowError(
@@ -3177,7 +3177,7 @@ describe('Pool', () => {
           debtReserve,
           collateralReserve,
           purchaseAmount,
-          getAToken,
+          getMToken,
           liquidateAll,
         }),
       ).rejects.toThrowError(
@@ -3194,7 +3194,7 @@ describe('Pool', () => {
           debtReserve,
           collateralReserve,
           purchaseAmount,
-          getAToken,
+          getMToken,
           liquidateAll,
         }),
       ).rejects.toThrowError(
@@ -3205,7 +3205,7 @@ describe('Pool', () => {
   describe('swapCollateral', () => {
     const user = '0x0000000000000000000000000000000000000006';
     const fromAsset = '0x0000000000000000000000000000000000000007';
-    const fromAToken = '0x0000000000000000000000000000000000000008';
+    const fromMToken = '0x0000000000000000000000000000000000000008';
     const toAsset = '0x0000000000000000000000000000000000000009';
     const augustus = '0x0000000000000000000000000000000000000011';
     const fromAmount = '12.34';
@@ -3256,7 +3256,7 @@ describe('Pool', () => {
         user,
         flash,
         fromAsset,
-        fromAToken,
+        fromMToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -3340,7 +3340,7 @@ describe('Pool', () => {
         user,
         flash,
         fromAsset,
-        fromAToken,
+        fromMToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -3422,7 +3422,7 @@ describe('Pool', () => {
         user,
         flash,
         fromAsset,
-        fromAToken,
+        fromMToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -3504,7 +3504,7 @@ describe('Pool', () => {
         user,
         flash,
         fromAsset,
-        fromAToken,
+        fromMToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -3589,7 +3589,7 @@ describe('Pool', () => {
         user,
         // flash,
         fromAsset,
-        fromAToken,
+        fromMToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -3611,7 +3611,7 @@ describe('Pool', () => {
         user,
         flash,
         fromAsset,
-        fromAToken,
+        fromMToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -3629,7 +3629,7 @@ describe('Pool', () => {
         user,
         flash,
         fromAsset,
-        fromAToken,
+        fromMToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -3649,7 +3649,7 @@ describe('Pool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromMToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -3671,7 +3671,7 @@ describe('Pool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromMToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -3685,15 +3685,15 @@ describe('Pool', () => {
         `Address: ${fromAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromAToken not and eth address', async () => {
+    it('Expects to fail when fromMToken not and eth address', async () => {
       const poolInstance = new Pool(provider, config);
-      const fromAToken = 'asdf';
+      const fromMToken = 'asdf';
       await expect(async () =>
         poolInstance.swapCollateral({
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromMToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -3704,7 +3704,7 @@ describe('Pool', () => {
           swapCallData,
         }),
       ).rejects.toThrowError(
-        `Address: ${fromAToken} is not a valid ethereum Address`,
+        `Address: ${fromMToken} is not a valid ethereum Address`,
       );
     });
     it('Expects to fail when toAsset not and eth address', async () => {
@@ -3715,7 +3715,7 @@ describe('Pool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromMToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -3737,7 +3737,7 @@ describe('Pool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromMToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -3759,7 +3759,7 @@ describe('Pool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromMToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -3781,7 +3781,7 @@ describe('Pool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromMToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -3803,7 +3803,7 @@ describe('Pool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromMToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -3825,7 +3825,7 @@ describe('Pool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromMToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -3843,7 +3843,7 @@ describe('Pool', () => {
   describe('paraswapRepayWithCollateral', () => {
     const user = '0x0000000000000000000000000000000000000006';
     const fromAsset = '0x0000000000000000000000000000000000000007';
-    const fromAToken = '0x0000000000000000000000000000000000000008';
+    const fromMToken = '0x0000000000000000000000000000000000000008';
     const assetToRepay = '0x0000000000000000000000000000000000000009';
     const augustus = '0x0000000000000000000000000000000000000011';
     const repayWithAmount = '12.34';
@@ -3902,7 +3902,7 @@ describe('Pool', () => {
         await poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3991,7 +3991,7 @@ describe('Pool', () => {
         await poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4077,7 +4077,7 @@ describe('Pool', () => {
         await poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4162,7 +4162,7 @@ describe('Pool', () => {
         await poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4247,7 +4247,7 @@ describe('Pool', () => {
         await poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4332,7 +4332,7 @@ describe('Pool', () => {
         await poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4423,7 +4423,7 @@ describe('Pool', () => {
       await poolInstance.paraswapRepayWithCollateral({
         user,
         fromAsset,
-        fromAToken,
+        fromMToken,
         assetToRepay,
         repayWithAmount,
         repayAmount,
@@ -4459,7 +4459,7 @@ describe('Pool', () => {
       await poolInstance.paraswapRepayWithCollateral({
         user,
         fromAsset,
-        fromAToken,
+        fromMToken,
         assetToRepay,
         repayWithAmount,
         repayAmount,
@@ -4481,7 +4481,7 @@ describe('Pool', () => {
       const txObj = await poolInstance.paraswapRepayWithCollateral({
         user,
         fromAsset,
-        fromAToken,
+        fromMToken,
         assetToRepay,
         repayWithAmount,
         repayAmount,
@@ -4500,7 +4500,7 @@ describe('Pool', () => {
       const txObj = await poolInstance.paraswapRepayWithCollateral({
         user,
         fromAsset,
-        fromAToken,
+        fromMToken,
         assetToRepay,
         repayWithAmount,
         repayAmount,
@@ -4521,7 +4521,7 @@ describe('Pool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4544,7 +4544,7 @@ describe('Pool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4567,7 +4567,7 @@ describe('Pool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4583,14 +4583,14 @@ describe('Pool', () => {
         `Address: ${augustus} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromAToken not and eth address', async () => {
+    it('Expects to fail when fromMToken not and eth address', async () => {
       const poolInstance = new Pool(provider, config);
-      const fromAToken = 'asdf';
+      const fromMToken = 'asdf';
       await expect(async () =>
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4603,7 +4603,7 @@ describe('Pool', () => {
           augustus,
         }),
       ).rejects.toThrowError(
-        `Address: ${fromAToken} is not a valid ethereum Address`,
+        `Address: ${fromMToken} is not a valid ethereum Address`,
       );
     });
     it('Expects to fail when assetToRepay not and eth address', async () => {
@@ -4613,7 +4613,7 @@ describe('Pool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4636,7 +4636,7 @@ describe('Pool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4659,7 +4659,7 @@ describe('Pool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4682,7 +4682,7 @@ describe('Pool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4705,7 +4705,7 @@ describe('Pool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromMToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -5048,7 +5048,7 @@ describe('Pool', () => {
       );
     });
   });
-  describe('repayWithATokens', () => {
+  describe('repayWithMTokens', () => {
     const user = '0x0000000000000000000000000000000000000006';
     const reserve = '0x0000000000000000000000000000000000000007';
     const amount = '123.456';
@@ -5065,14 +5065,14 @@ describe('Pool', () => {
       const poolInstance = new Pool(provider, config);
 
       await expect(async () =>
-        poolInstance.repayWithATokens({
+        poolInstance.repayWithMTokens({
           user,
           reserve,
           amount,
           rateMode,
         }),
       ).rejects.toThrowError(
-        'Can not repay with aTokens with eth. Should be WETH instead',
+        'Can not repay with mTokens with eth. Should be WETH instead',
       );
     });
     it('Expects the tx object passing all params with amount -1 with reate stable', async () => {
@@ -5086,7 +5086,7 @@ describe('Pool', () => {
 
       const amount = '-1';
       const rateMode = InterestRate.Stable;
-      const reapyTxObj = await poolInstance.repayWithATokens({
+      const reapyTxObj = await poolInstance.repayWithMTokens({
         user,
         reserve,
         amount,
@@ -5130,12 +5130,12 @@ describe('Pool', () => {
         .spyOn(poolInstance.synthetixService, 'synthetixValidation')
         .mockReturnValue(Promise.resolve(true));
       const optimalPoolSpy = jest
-        .spyOn(poolInstance.l2PoolService, 'repayWithATokens')
+        .spyOn(poolInstance.l2PoolService, 'repayWithMTokens')
         .mockReturnValue(Promise.resolve([]));
 
       const amount = '-1';
       const rateMode = InterestRate.Stable;
-      const reapyTxObj = await poolInstance.repayWithATokens({
+      const reapyTxObj = await poolInstance.repayWithMTokens({
         user,
         reserve,
         amount,
@@ -5156,7 +5156,7 @@ describe('Pool', () => {
         .mockReturnValueOnce(Promise.resolve(decimals));
 
       const rateMode = InterestRate.Variable;
-      const reapyTxObj = await poolInstance.repayWithATokens({
+      const reapyTxObj = await poolInstance.repayWithMTokens({
         user,
         reserve,
         amount,
@@ -5192,7 +5192,7 @@ describe('Pool', () => {
     });
     it('Expects to fail when PoolAddress not provided', async () => {
       const poolInstance = new Pool(provider);
-      const txObj = await poolInstance.repayWithATokens({
+      const txObj = await poolInstance.repayWithMTokens({
         user,
         reserve,
         amount,
@@ -5204,7 +5204,7 @@ describe('Pool', () => {
       const poolInstance = new Pool(provider, config);
       const user = 'asdf';
       await expect(async () =>
-        poolInstance.repayWithATokens({
+        poolInstance.repayWithMTokens({
           user,
           reserve,
           amount,
@@ -5218,7 +5218,7 @@ describe('Pool', () => {
       const poolInstance = new Pool(provider, config);
       const reserve = 'asdf';
       await expect(async () =>
-        poolInstance.repayWithATokens({
+        poolInstance.repayWithMTokens({
           user,
           reserve,
           amount,
@@ -5232,7 +5232,7 @@ describe('Pool', () => {
       const poolInstance = new Pool(provider, config);
       const amount = '0';
       await expect(async () =>
-        poolInstance.repayWithATokens({
+        poolInstance.repayWithMTokens({
           user,
           reserve,
           amount,
@@ -5244,7 +5244,7 @@ describe('Pool', () => {
       const poolInstance = new Pool(provider, config);
       const amount = 'asdf';
       await expect(async () =>
-        poolInstance.repayWithATokens({
+        poolInstance.repayWithMTokens({
           user,
           reserve,
           amount,

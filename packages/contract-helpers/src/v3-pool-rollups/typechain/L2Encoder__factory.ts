@@ -88,7 +88,7 @@ const _abi = [
       },
       {
         internalType: 'bool',
-        name: 'receiveAToken',
+        name: 'receiveMToken',
         type: 'bool',
       },
     ],
@@ -179,7 +179,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'encodeRepayWithATokensParams',
+    name: 'encodeRepayWithMTokensParams',
     outputs: [
       {
         internalType: 'bytes32',

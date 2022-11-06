@@ -589,7 +589,7 @@ export class IUiIncentiveDataProviderV3 extends BaseContract {
           },
         ] & {
           underlyingAsset: string;
-          aTokenIncentivesUserData: [
+          mTokenIncentivesUserData: [
             string,
             string,
             ([
@@ -1228,7 +1228,7 @@ export class IUiIncentiveDataProviderV3 extends BaseContract {
           },
         ] & {
           underlyingAsset: string;
-          aTokenIncentivesUserData: [
+          mTokenIncentivesUserData: [
             string,
             string,
             ([
@@ -1860,7 +1860,7 @@ export class IUiIncentiveDataProviderV3 extends BaseContract {
         },
       ] & {
         underlyingAsset: string;
-        aTokenIncentivesUserData: [
+        mTokenIncentivesUserData: [
           string,
           string,
           ([
@@ -2496,7 +2496,7 @@ export class IUiIncentiveDataProviderV3 extends BaseContract {
       },
     ] & {
       underlyingAsset: string;
-      aTokenIncentivesUserData: [
+      mTokenIncentivesUserData: [
         string,
         string,
         ([
@@ -3127,7 +3127,7 @@ export class IUiIncentiveDataProviderV3 extends BaseContract {
           },
         ] & {
           underlyingAsset: string;
-          aTokenIncentivesUserData: [
+          mTokenIncentivesUserData: [
             string,
             string,
             ([
@@ -3763,7 +3763,7 @@ export class IUiIncentiveDataProviderV3 extends BaseContract {
         },
       ] & {
         underlyingAsset: string;
-        aTokenIncentivesUserData: [
+        mTokenIncentivesUserData: [
           string,
           string,
           ([

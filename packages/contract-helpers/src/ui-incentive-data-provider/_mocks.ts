@@ -414,7 +414,7 @@ export const getReservesIncentivesDataMock: ReserveIncentiveDataResponse[] = [
 export const getUserIncentivesDataMock: UserReserveIncentiveDataResponse[] = [
   {
     underlyingAsset: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-    aTokenIncentivesUserData: {
+    mTokenIncentivesUserData: {
       tokenincentivesUserIndex: BigNumber.from({
         type: 'BigNumber',
         hex: '0x24094726ecb06549c3afce',

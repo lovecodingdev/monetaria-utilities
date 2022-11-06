@@ -15,7 +15,7 @@ import {
 
 export interface UserReserveData {
   underlyingAsset: string;
-  scaledATokenBalance: string;
+  scaledMTokenBalance: string;
   usageAsCollateralEnabledOnUser: boolean;
   stableBorrowRate: string;
   scaledVariableDebt: string;

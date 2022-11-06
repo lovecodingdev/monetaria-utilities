@@ -35,7 +35,7 @@ export function calculateUserReserveIncentives({
 }: CalculateUserReserveIncentivesRequest): UserReserveIncentive[] {
   const calculatedUserIncentives: UserReserveIncentive[] = [];
   // Compute incentive data for each reward linked to supply of this reserve
-  userIncentives.aTokenIncentivesUserData.userRewardsInformation.forEach(
+  userIncentives.mTokenIncentivesUserData.userRewardsInformation.forEach(
     userReserveIncentive => {
       const reserveIncentive =
         reserveIncentives.aIncentiveData.rewardsTokenInformation.find(
@@ -44,39 +44,39 @@ export function calculateUserReserveIncentives({
             userReserveIncentive.rewardTokenAddress,
         );
       if (reserveIncentive) {
-        // Calculating accrued rewards is only required if user has an active aToken balance
+        // Calculating accrued rewards is only required if user has an active mToken balance
         const accruedRewards = userReserveData
           ? calculateAccruedIncentives({
-              principalUserBalance: new BigNumber(
-                userReserveData.scaledATokenBalance,
+            principalUserBalance: new BigNumber(
+              userReserveData.scaledMTokenBalance,
+            ),
+            reserveIndex: new BigNumber(
+              reserveIncentive.tokenIncentivesIndex,
+            ),
+            userIndex: new BigNumber(
+              userReserveIncentive.tokenIncentivesUserIndex,
+            ),
+            precision: reserveIncentive.precision,
+            reserveIndexTimestamp:
+              reserveIncentive.incentivesLastUpdateTimestamp,
+            emissionPerSecond: new BigNumber(
+              reserveIncentive.emissionPerSecond,
+            ),
+            totalSupply: rayDiv(
+              new BigNumber(userReserveData.reserve.totalLiquidity).shiftedBy(
+                userReserveData.reserve.decimals,
               ),
-              reserveIndex: new BigNumber(
-                reserveIncentive.tokenIncentivesIndex,
-              ),
-              userIndex: new BigNumber(
-                userReserveIncentive.tokenIncentivesUserIndex,
-              ),
-              precision: reserveIncentive.precision,
-              reserveIndexTimestamp:
-                reserveIncentive.incentivesLastUpdateTimestamp,
-              emissionPerSecond: new BigNumber(
-                reserveIncentive.emissionPerSecond,
-              ),
-              totalSupply: rayDiv(
-                new BigNumber(userReserveData.reserve.totalLiquidity).shiftedBy(
-                  userReserveData.reserve.decimals,
-                ),
-                new BigNumber(userReserveData.reserve.liquidityIndex),
-              ),
-              currentTimestamp,
-              emissionEndTimestamp: reserveIncentive.emissionEndTimestamp,
-            })
+              new BigNumber(userReserveData.reserve.liquidityIndex),
+            ),
+            currentTimestamp,
+            emissionEndTimestamp: reserveIncentive.emissionEndTimestamp,
+          })
           : new BigNumber('0');
 
         calculatedUserIncentives.push({
-          tokenAddress: userIncentives.aTokenIncentivesUserData.tokenAddress,
+          tokenAddress: userIncentives.mTokenIncentivesUserData.tokenAddress,
           incentiveController:
-            userIncentives.aTokenIncentivesUserData.incentiveControllerAddress,
+            userIncentives.mTokenIncentivesUserData.incentiveControllerAddress,
           rewardTokenAddress: userReserveIncentive.rewardTokenAddress,
           rewardTokenDecimals: userReserveIncentive.rewardTokenDecimals,
           accruedRewards,
@@ -105,27 +105,27 @@ export function calculateUserReserveIncentives({
         // Calculating accrued rewards is only required if user has an active variableDebt token balance
         const accruedRewards = userReserveData
           ? calculateAccruedIncentives({
-              principalUserBalance: new BigNumber(
-                userReserveData.scaledVariableDebt,
-              ),
-              reserveIndex: new BigNumber(
-                reserveIncentive.tokenIncentivesIndex,
-              ),
-              userIndex: new BigNumber(
-                userReserveIncentive.tokenIncentivesUserIndex,
-              ),
-              precision: reserveIncentive.precision,
-              reserveIndexTimestamp:
-                reserveIncentive.incentivesLastUpdateTimestamp,
-              emissionPerSecond: new BigNumber(
-                reserveIncentive.emissionPerSecond,
-              ),
-              totalSupply: new BigNumber(
-                userReserveData.reserve.totalScaledVariableDebt,
-              ).shiftedBy(userReserveData.reserve.decimals),
-              currentTimestamp,
-              emissionEndTimestamp: reserveIncentive.emissionEndTimestamp,
-            })
+            principalUserBalance: new BigNumber(
+              userReserveData.scaledVariableDebt,
+            ),
+            reserveIndex: new BigNumber(
+              reserveIncentive.tokenIncentivesIndex,
+            ),
+            userIndex: new BigNumber(
+              userReserveIncentive.tokenIncentivesUserIndex,
+            ),
+            precision: reserveIncentive.precision,
+            reserveIndexTimestamp:
+              reserveIncentive.incentivesLastUpdateTimestamp,
+            emissionPerSecond: new BigNumber(
+              reserveIncentive.emissionPerSecond,
+            ),
+            totalSupply: new BigNumber(
+              userReserveData.reserve.totalScaledVariableDebt,
+            ).shiftedBy(userReserveData.reserve.decimals),
+            currentTimestamp,
+            emissionEndTimestamp: reserveIncentive.emissionEndTimestamp,
+          })
           : new BigNumber('0');
         calculatedUserIncentives.push({
           tokenAddress: userIncentives.vTokenIncentivesUserData.tokenAddress,
@@ -159,27 +159,27 @@ export function calculateUserReserveIncentives({
         // Calculating accrued rewards is only required if user has an active stableDebtToken balance
         const accruedRewards = userReserveData
           ? calculateAccruedIncentives({
-              principalUserBalance: new BigNumber(
-                userReserveData.principalStableDebt,
-              ),
-              reserveIndex: new BigNumber(
-                reserveIncentive.tokenIncentivesIndex,
-              ),
-              userIndex: new BigNumber(
-                userReserveIncentive.tokenIncentivesUserIndex,
-              ),
-              precision: reserveIncentive.precision,
-              reserveIndexTimestamp:
-                reserveIncentive.incentivesLastUpdateTimestamp,
-              emissionPerSecond: new BigNumber(
-                reserveIncentive.emissionPerSecond,
-              ),
-              totalSupply: new BigNumber(
-                userReserveData.reserve.totalPrincipalStableDebt,
-              ).shiftedBy(userReserveData.reserve.decimals),
-              currentTimestamp,
-              emissionEndTimestamp: reserveIncentive.emissionEndTimestamp,
-            })
+            principalUserBalance: new BigNumber(
+              userReserveData.principalStableDebt,
+            ),
+            reserveIndex: new BigNumber(
+              reserveIncentive.tokenIncentivesIndex,
+            ),
+            userIndex: new BigNumber(
+              userReserveIncentive.tokenIncentivesUserIndex,
+            ),
+            precision: reserveIncentive.precision,
+            reserveIndexTimestamp:
+              reserveIncentive.incentivesLastUpdateTimestamp,
+            emissionPerSecond: new BigNumber(
+              reserveIncentive.emissionPerSecond,
+            ),
+            totalSupply: new BigNumber(
+              userReserveData.reserve.totalPrincipalStableDebt,
+            ).shiftedBy(userReserveData.reserve.decimals),
+            currentTimestamp,
+            emissionEndTimestamp: reserveIncentive.emissionEndTimestamp,
+          })
           : new BigNumber('0');
         calculatedUserIncentives.push({
           tokenAddress: userIncentives.sTokenIncentivesUserData.tokenAddress,

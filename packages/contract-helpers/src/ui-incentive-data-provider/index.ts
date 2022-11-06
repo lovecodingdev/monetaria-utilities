@@ -66,8 +66,7 @@ export interface GetIncentivesDataWithPriceType {
 }
 
 export class UiIncentiveDataProvider
-  implements UiIncentiveDataProviderInterface
-{
+  implements UiIncentiveDataProviderInterface {
   public readonly _contract: UiIncentiveDataProviderContract;
 
   private readonly _chainlinkFeedsRegistries: Record<
@@ -163,8 +162,8 @@ export class UiIncentiveDataProvider
     return response.map(r => ({
       id: `${this.chainId}-${user}-${r.underlyingAsset}-${lendingPoolAddressProvider}`.toLowerCase(),
       underlyingAsset: r.underlyingAsset.toLowerCase(),
-      aTokenIncentivesUserData: this._formatUserIncentiveData(
-        r.aTokenIncentivesUserData,
+      mTokenIncentivesUserData: this._formatUserIncentiveData(
+        r.mTokenIncentivesUserData,
       ),
       vTokenIncentivesUserData: this._formatUserIncentiveData(
         r.vTokenIncentivesUserData,

@@ -65,7 +65,7 @@ yarn add @monetaria/contract-helpers @monetaria/math-utils
       - [borrow](<#borrow-(v3)>)
       - [repay](<#repay-(v3)>)
       - [repayWithPermit](#repayWithPermit)
-      - [repayWithATokens](#repayWithATokens)
+      - [repayWithMTokens](#repayWithMTokens)
       - [withdraw](<#withdraw-(v3)>)
       - [swapBorrowRateMode](<#swapBorrowRateMode-(v3)>)
       - [setUsageAsCollateral](<#setUsageAsCollateral-(v3)>)
@@ -309,7 +309,7 @@ const reserves = queryResult.reserves.map(reserve => {
     reserve{
       underlyingAsset
     }
-    scaledATokenBalance
+    scaledMTokenBalance
     usageAsCollateralEnabledOnUser
     stableBorrowRate
     scaledVariableDebt
@@ -447,7 +447,7 @@ const reserves = queryResults.map(queryResult => {
     reserve {
       underlyingAsset
     }
-    scaledATokenBalance
+    scaledMTokenBalance
     usageAsCollateralEnabledOnUser
     stableBorrowRate
     scaledVariableDebt
@@ -619,7 +619,7 @@ const formattedPoolReserves = formatReservesAndIncentives({
 
 Formatted user data is an object containing cumulative metrics (healthFactor,
 totalLiquidity, totalBorrows, etc.) and an array of formatted reserve data plus
-user holdings (aTokens, debtTokens) for each reserve in an Monetaria market
+user holdings (mTokens, debtTokens) for each reserve in an Monetaria market
 
 ### formatUserSummary
 
@@ -772,7 +772,7 @@ Transaction methods to perform actions on the V3 Pool contract
 ### supply
 
 Formerly `deposit`, supply the underlying asset into the Pool reserve. For every
-token that is supplied, a corresponding amount of aTokens is minted
+token that is supplied, a corresponding amount of mTokens is minted
 
 <details>
   <summary>Sample Code</summary>
@@ -899,7 +899,7 @@ Submit transaction as shown [here](#submitting-transactions)
 
 Borrow an `amount` of `reserve` asset.
 
-User must have a collaterised position (i.e. aTokens in their wallet)
+User must have a collaterised position (i.e. mTokens in their wallet)
 
 <details>
   <summary>Sample Code</summary>
@@ -1019,14 +1019,14 @@ Submit transaction as shown [here](#submitting-transactions)
 
 <br />
 
-### repayWithATokens
+### repayWithMTokens
 
 Repays a borrow on the specific reserve, for the specified amount, deducting
-funds from a users aToken balance instead of the underlying balance. To repay
-the max debt amount or max aToken balance without dust (whichever is lowest),
+funds from a users mToken balance instead of the underlying balance. To repay
+the max debt amount or max mToken balance without dust (whichever is lowest),
 set the amount to -1
 
-There is no need for an approval or signature when repaying with aTokens
+There is no need for an approval or signature when repaying with mTokens
 
 <details>
   <summary>Sample Code</summary>
@@ -1041,11 +1041,11 @@ const pool = new Pool(provider, {
 
 /*
 - @param `user` The ethereum address that will make the deposit 
-- @param `amount` The amount to be deposited, -1 to repay max aToken balance or max debt balance without dust (whichever is lowest)
+- @param `amount` The amount to be deposited, -1 to repay max mToken balance or max debt balance without dust (whichever is lowest)
 - @param `reserve` The ethereum address of the reserve 
 - @param `rateMode` The debt type to repay, stable (InterestRate.Stable) or variable (InterestRate.Variable)
 */
-const txs: EthereumTransactionTypeExtended[] = await pool.repayWithATokens({
+const txs: EthereumTransactionTypeExtended[] = await pool.repayWithMTokens({
   user,
   amount,
   reserve,
@@ -1061,7 +1061,7 @@ Submit transaction as shown [here](#submitting-transactions)
 
 ### withdraw (V3)
 
-Withdraws the underlying asset of an aToken asset.
+Withdraws the underlying asset of an mToken asset.
 
 <details>
   <summary>Sample Code</summary>
@@ -1078,14 +1078,14 @@ const pool = new Pool(provider, {
 - @param `user` The ethereum address that will make the deposit 
 - @param `reserve` The ethereum address of the reserve 
 - @param `amount` The amount to be deposited 
-- @param `aTokenAddress` The aToken to redeem for underlying asset
+- @param `mTokenAddress` The mToken to redeem for underlying asset
 - @param @optional `onBehalfOf` The ethereum address for which user is depositing. It will default to the user address
 */
 const txs: EthereumTransactionTypeExtended[] = await pool.withdraw({
   user,
   reserve,
   amount,
-  aTokenAddress,
+  mTokenAddress,
   onBehalfOf,
 });
 ```
@@ -1185,7 +1185,7 @@ const pool = new Pool(provider, {
 - @param `debtReserve` The ethereum address of the principal reserve 
 - @param `collateralReserve` The address of the collateral to liquidated 
 - @param `purchaseAmount` The amount of principal that the liquidator wants to repay 
-- @param @optional `getAToken` Boolean to indicate if the user wants to receive the aToken instead of the asset. Defaults to false
+- @param @optional `getMToken` Boolean to indicate if the user wants to receive the mToken instead of the asset. Defaults to false
 */
 const txs: EthereumTransactionTypeExtended[] = lendingPool.liquidationCall({
   liquidator,
@@ -1193,7 +1193,7 @@ const txs: EthereumTransactionTypeExtended[] = lendingPool.liquidationCall({
   debtReserve,
   collateralReserve,
   purchaseAmount,
-  getAToken,
+  getMToken,
 });
 ```
 
@@ -1223,7 +1223,7 @@ const pool = new Pool(provider, {
 - @param `user` The ethereum address that will liquidate the position 
 - @param @optional `flash` If the transaction will be executed through a flasloan(true) or will be done directly through the adapters(false). Defaults to false 
 - @param `fromAsset` The ethereum address of the asset you want to swap 
-- @param `fromAToken` The ethereum address of the aToken of the asset you want to swap 
+- @param `fromMToken` The ethereum address of the mToken of the asset you want to swap 
 - @param `toAsset` The ethereum address of the asset you want to swap to (get) 
 - @param `fromAmount` The amount you want to swap 
 - @param `toAmount` The amount you want to get after the swap 
@@ -1239,7 +1239,7 @@ const txs: EthereumTransactionTypeExtended[] = await lendingPool.swapCollateral(
     user,
     flash,
     fromAsset,
-    fromAToken,
+    fromMToken,
     toAsset,
     fromAmount,
     toAmount,
@@ -1278,7 +1278,7 @@ const pool = new Pool(provider, {
 /*
 - @param `user` The ethereum address that will liquidate the position 
 - @param `fromAsset` The ethereum address of the asset you want to repay with (collateral) 
-- @param `fromAToken` The ethereum address of the aToken of the asset you want to repay with (collateral) 
+- @param `fromMToken` The ethereum address of the mToken of the asset you want to repay with (collateral) 
 - @param `assetToRepay` The ethereum address of the asset you want to repay 
 - @param `repayWithAmount` The amount of collateral you want to repay the debt with 
 - @param `repayAmount` The amount of debt you want to repay 
@@ -1294,7 +1294,7 @@ const txs: EthereumTransactionTypeExtended[] =
   await lendingPool.repayWithCollateral({
     user,
     fromAsset,
-    fromAToken,
+    fromMToken,
     assetToRepay,
     repayWithAmount,
     repayAmount,
@@ -1358,7 +1358,7 @@ transactions
 ### deposit
 
 Deposits the underlying asset into the reserve. For every token that is
-deposited, a corresponding amount of aTokens is minted
+deposited, a corresponding amount of mTokens is minted
 
 <details>
   <summary>Sample Code</summary>
@@ -1395,7 +1395,7 @@ Submit transaction(s) as shown [here](#submitting-transactions)
 
 Borrow an `amount` of `reserve` asset.
 
-User must have a collaterised position (i.e. aTokens in their wallet)
+User must have a collaterised position (i.e. mTokens in their wallet)
 
 </details>
 
@@ -1479,7 +1479,7 @@ Submit transaction(s) as shown [here](#submitting-transactions)
 
 ### withdraw
 
-Withdraws the underlying asset of an aToken asset.
+Withdraws the underlying asset of an mToken asset.
 
 <details>
   <summary>Sample Code</summary>
@@ -1493,17 +1493,17 @@ const lendingPool = new LendingPool(provider, {
 });
 
 /*
-- @param `user` The ethereum address that will receive the aTokens 
+- @param `user` The ethereum address that will receive the mTokens 
 - @param `reserve` The ethereum address of the reserve asset 
-- @param `amount` The amount of aToken being redeemed 
-- @param @optional `aTokenAddress` The ethereum address of the aToken. Only needed if the reserve is ETH mock address 
-- @param @optional `onBehalfOf` The amount of aToken being redeemed. It will default to the user address
+- @param `amount` The amount of mToken being redeemed 
+- @param @optional `mTokenAddress` The ethereum address of the mToken. Only needed if the reserve is ETH mock address 
+- @param @optional `onBehalfOf` The amount of mToken being redeemed. It will default to the user address
 */
 const txs: EthereumTransactionTypeExtended[] = lendingPool.withdraw({
   user,
   reserve,
   amount,
-  aTokenAddress,
+  mTokenAddress,
   onBehalfOf,
 });
 ```
@@ -1604,7 +1604,7 @@ const lendingPool = new LendingPool(provider, {
 - @param `debtReserve` The ethereum address of the principal reserve 
 - @param `collateralReserve` The address of the collateral to liquidated 
 - @param `purchaseAmount` The amount of principal that the liquidator wants to repay 
-- @param @optional `getAToken` Boolean to indicate if the user wants to receive the aToken instead of the asset. Defaults to false
+- @param @optional `getMToken` Boolean to indicate if the user wants to receive the mToken instead of the asset. Defaults to false
 */
 const txs: EthereumTransactionTypeExtended[] = lendingPool.liquidationCall({
   liquidator,
@@ -1612,7 +1612,7 @@ const txs: EthereumTransactionTypeExtended[] = lendingPool.liquidationCall({
   debtReserve,
   collateralReserve,
   purchaseAmount,
-  getAToken,
+  getMToken,
 });
 ```
 
@@ -1646,7 +1646,7 @@ const lendingPool = new LendingPool(provider, {
 - @param `user` The ethereum address that will liquidate the position 
 - @param @optional `flash` If the transaction will be executed through a flasloan(true) or will be done directly through the adapters(false). Defaults to false 
 - @param `fromAsset` The ethereum address of the asset you want to swap 
-- @param `fromAToken` The ethereum address of the aToken of the asset you want to swap 
+- @param `fromMToken` The ethereum address of the mToken of the asset you want to swap 
 - @param `toAsset` The ethereum address of the asset you want to swap to (get) 
 - @param `fromAmount` The amount you want to swap 
 - @param `toAmount` The amount you want to get after the swap 
@@ -1662,7 +1662,7 @@ const txs: EthereumTransactionTypeExtended[] = await lendingPool.swapCollateral(
     user,
     flash,
     fromAsset,
-    fromAToken,
+    fromMToken,
     toAsset,
     fromAmount,
     toAmount,
@@ -1705,7 +1705,7 @@ const lendingPool = new LendingPool(provider, {
 /*
 - @param `user` The ethereum address that will liquidate the position 
 - @param `fromAsset` The ethereum address of the asset you want to repay with (collateral) 
-- @param `fromAToken` The ethereum address of the aToken of the asset you want to repay with (collateral) 
+- @param `fromMToken` The ethereum address of the mToken of the asset you want to repay with (collateral) 
 - @param `assetToRepay` The ethereum address of the asset you want to repay 
 - @param `repayWithAmount` The amount of collateral you want to repay the debt with 
 - @param `repayAmount` The amount of debt you want to repay 
@@ -1721,7 +1721,7 @@ const txs: EthereumTransactionTypeExtended[] =
   await lendingPool.repayWithCollateral({
     user,
     fromAsset,
-    fromAToken,
+    fromMToken,
     assetToRepay,
     repayWithAmount,
     repayAmount,

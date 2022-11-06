@@ -77,7 +77,7 @@ const _abi = [
         type: 'bytes32',
       },
     ],
-    name: 'repayWithATokens',
+    name: 'repayWithMTokens',
     outputs: [
       {
         internalType: 'uint256',

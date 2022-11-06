@@ -53,7 +53,7 @@ import {
   LPLiquidationCall,
   LPParaswapRepayWithCollateral,
   LPRepayParamsType,
-  LPRepayWithATokensType,
+  LPRepayWithMTokensType,
   LPRepayWithPermitParamsType,
   LPSetUsageAsCollateral,
   LPSetUserEModeType,
@@ -101,8 +101,8 @@ export interface PoolInterface {
   flashLiquidation: (
     args: LPFlashLiquidation,
   ) => Promise<EthereumTransactionTypeExtended[]>;
-  repayWithATokens: (
-    args: LPRepayWithATokensType,
+  repayWithMTokens: (
+    args: LPRepayWithMTokensType,
   ) => Promise<EthereumTransactionTypeExtended[]>;
   liquidationCall: (
     args: LPLiquidationCall,
@@ -554,18 +554,18 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
     @isEthAddress('reserve')
     @isPositiveOrMinusOneAmount('amount')
     @isEthAddress('onBehalfOf')
-    @isEthAddress('aTokenAddress')
+    @isEthAddress('mTokenAddress')
     {
       user,
       reserve,
       amount,
       onBehalfOf,
-      aTokenAddress,
+      mTokenAddress,
       useOptimizedPath,
     }: LPWithdrawParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
-      if (!aTokenAddress) {
+      if (!mTokenAddress) {
         throw new Error(
           'To withdraw ETH you need to pass the aWETH token address',
         );
@@ -576,7 +576,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
         user,
         amount,
         onBehalfOf,
-        aTokenAddress,
+        mTokenAddress,
       });
     }
 
@@ -976,7 +976,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
       debtReserve,
       collateralReserve,
       purchaseAmount,
-      getAToken,
+      getMToken,
       liquidateAll,
       useOptimizedPath,
     }: LPLiquidationCall,
@@ -1017,7 +1017,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
           debtReserve,
           collateralReserve,
           debtToCover: convertedAmount,
-          getAToken,
+          getMToken,
         },
         txs,
       );
@@ -1032,7 +1032,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
           debtReserve,
           liquidatedUser,
           convertedAmount,
-          getAToken ?? false,
+          getMToken ?? false,
         ),
       from: liquidator,
       value: getTxValue(debtReserve, convertedAmount),
@@ -1055,7 +1055,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
   public async swapCollateral(
     @isEthAddress('user')
     @isEthAddress('fromAsset')
-    @isEthAddress('fromAToken')
+    @isEthAddress('fromMToken')
     @isEthAddress('toAsset')
     @isEthAddress('augustus')
     @isPositiveAmount('fromAmount')
@@ -1064,7 +1064,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
       user,
       flash,
       fromAsset,
-      fromAToken,
+      fromMToken,
       toAsset,
       fromAmount,
       minToAmount,
@@ -1086,7 +1086,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
     };
 
     const approved: boolean = await this.erc20Service.isApproved({
-      token: fromAToken,
+      token: fromMToken,
       user,
       spender: this.swapCollateralAddress,
       amount: fromAmount,
@@ -1096,7 +1096,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
       const approveTx: EthereumTransactionTypeExtended =
         this.erc20Service.approve({
           user,
-          token: fromAToken,
+          token: fromMToken,
           spender: this.swapCollateralAddress,
           amount: constants.MaxUint256.toString(),
         });
@@ -1193,7 +1193,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
   public async paraswapRepayWithCollateral(
     @isEthAddress('user')
     @isEthAddress('fromAsset')
-    @isEthAddress('fromAToken')
+    @isEthAddress('fromMToken')
     @isEthAddress('assetToRepay')
     @isPositiveAmount('repayWithAmount')
     @isPositiveAmount('repayAmount')
@@ -1201,7 +1201,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
     {
       user,
       fromAsset,
-      fromAToken,
+      fromMToken,
       assetToRepay,
       repayWithAmount,
       repayAmount,
@@ -1225,7 +1225,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
     };
 
     const approved: boolean = await this.erc20Service.isApproved({
-      token: fromAToken,
+      token: fromMToken,
       user,
       spender: this.repayWithCollateralAddress,
       amount: repayWithAmount,
@@ -1235,7 +1235,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
       const approveTx: EthereumTransactionTypeExtended =
         this.erc20Service.approve({
           user,
-          token: fromAToken,
+          token: fromMToken,
           spender: this.repayWithCollateralAddress,
           amount: constants.MaxUint256.toString(),
         });
@@ -1429,7 +1429,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
   }
 
   @LPValidatorV3
-  public async repayWithATokens(
+  public async repayWithMTokens(
     @isEthAddress('user')
     @isEthAddress('reserve')
     @isPositiveOrMinusOneAmount('amount')
@@ -1439,11 +1439,11 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
       reserve,
       rateMode,
       useOptimizedPath,
-    }: LPRepayWithATokensType,
+    }: LPRepayWithMTokensType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
       throw new Error(
-        'Can not repay with aTokens with eth. Should be WETH instead',
+        'Can not repay with mTokens with eth. Should be WETH instead',
       );
     }
 
@@ -1461,7 +1461,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
         : valueToWei(amount, decimals);
 
     if (useOptimizedPath) {
-      return this.l2PoolService.repayWithATokens(
+      return this.l2PoolService.repayWithMTokens(
         {
           user,
           reserve,
@@ -1474,7 +1474,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>
-        populateTransaction.repayWithATokens(
+        populateTransaction.repayWithMTokens(
           reserve,
           convertedAmount,
           numericRateMode,

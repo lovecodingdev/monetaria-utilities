@@ -133,8 +133,7 @@ export interface LendingPoolInterface {
 
 export class LendingPool
   extends BaseService<ILendingPool>
-  implements LendingPoolInterface
-{
+  implements LendingPoolInterface {
   readonly erc20Service: IERC20ServiceInterface;
 
   readonly lendingPoolAddress: string;
@@ -282,11 +281,11 @@ export class LendingPool
     @isEthAddress('reserve')
     @isPositiveOrMinusOneAmount('amount')
     @isEthAddress('onBehalfOf')
-    @isEthAddress('aTokenAddress')
-    { user, reserve, amount, onBehalfOf, aTokenAddress }: LPWithdrawParamsType,
+    @isEthAddress('mTokenAddress')
+    { user, reserve, amount, onBehalfOf, mTokenAddress }: LPWithdrawParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
-      if (!aTokenAddress) {
+      if (!mTokenAddress) {
         throw new Error(
           'To withdraw ETH you need to pass the aWETH token address',
         );
@@ -297,7 +296,7 @@ export class LendingPool
         user,
         amount,
         onBehalfOf,
-        aTokenAddress,
+        mTokenAddress,
       });
     }
 
@@ -560,7 +559,7 @@ export class LendingPool
       debtReserve,
       collateralReserve,
       purchaseAmount,
-      getAToken,
+      getMToken,
       liquidateAll,
     }: LPLiquidationCall,
   ): Promise<EthereumTransactionTypeExtended[]> {
@@ -603,7 +602,7 @@ export class LendingPool
           debtReserve,
           liquidatedUser,
           convertedAmount,
-          getAToken ?? false,
+          getMToken ?? false,
         ),
       from: liquidator,
       value: getTxValue(debtReserve, convertedAmount),
@@ -626,7 +625,7 @@ export class LendingPool
   public async swapCollateral(
     @isEthAddress('user')
     @isEthAddress('fromAsset')
-    @isEthAddress('fromAToken')
+    @isEthAddress('fromMToken')
     @isEthAddress('toAsset')
     @isEthAddress('onBehalfOf')
     @isEthAddress('augustus')
@@ -636,7 +635,7 @@ export class LendingPool
       user,
       flash,
       fromAsset,
-      fromAToken,
+      fromMToken,
       toAsset,
       fromAmount,
       minToAmount,
@@ -659,7 +658,7 @@ export class LendingPool
     };
 
     const approved: boolean = await this.erc20Service.isApproved({
-      token: fromAToken,
+      token: fromMToken,
       user,
       spender: this.swapCollateralAddress,
       amount: fromAmount,
@@ -669,7 +668,7 @@ export class LendingPool
       const approveTx: EthereumTransactionTypeExtended =
         this.erc20Service.approve({
           user,
-          token: fromAToken,
+          token: fromMToken,
           spender: this.swapCollateralAddress,
           amount: constants.MaxUint256.toString(),
         });
@@ -770,7 +769,7 @@ export class LendingPool
   public async repayWithCollateral(
     @isEthAddress('user')
     @isEthAddress('fromAsset')
-    @isEthAddress('fromAToken')
+    @isEthAddress('fromMToken')
     @isEthAddress('assetToRepay')
     @isEthAddress('onBehalfOf')
     @isPositiveAmount('repayWithAmount')
@@ -778,7 +777,7 @@ export class LendingPool
     {
       user,
       fromAsset,
-      fromAToken,
+      fromMToken,
       assetToRepay,
       repayWithAmount,
       repayAmount,
@@ -802,7 +801,7 @@ export class LendingPool
     };
 
     const approved: boolean = await this.erc20Service.isApproved({
-      token: fromAToken,
+      token: fromMToken,
       user,
       spender: this.repayWithCollateralAddress,
       amount: repayWithAmount,
@@ -812,7 +811,7 @@ export class LendingPool
       const approveTx: EthereumTransactionTypeExtended =
         this.erc20Service.approve({
           user,
-          token: fromAToken,
+          token: fromMToken,
           spender: this.repayWithCollateralAddress,
           amount: constants.MaxUint256.toString(),
         });
@@ -920,7 +919,7 @@ export class LendingPool
   public async paraswapRepayWithCollateral(
     @isEthAddress('user')
     @isEthAddress('fromAsset')
-    @isEthAddress('fromAToken')
+    @isEthAddress('fromMToken')
     @isEthAddress('assetToRepay')
     @isEthAddress('onBehalfOf')
     @isPositiveAmount('repayWithAmount')
@@ -929,7 +928,7 @@ export class LendingPool
     {
       user,
       fromAsset,
-      fromAToken,
+      fromMToken,
       assetToRepay,
       repayWithAmount,
       repayAmount,
@@ -954,7 +953,7 @@ export class LendingPool
     };
 
     const approved: boolean = await this.erc20Service.isApproved({
-      token: fromAToken,
+      token: fromMToken,
       user,
       spender: this.repayWithCollateralAddress,
       amount: repayWithAmount,
@@ -964,7 +963,7 @@ export class LendingPool
       const approveTx: EthereumTransactionTypeExtended =
         this.erc20Service.approve({
           user,
-          token: fromAToken,
+          token: fromMToken,
           spender: this.repayWithCollateralAddress,
           amount: constants.MaxUint256.toString(),
         });

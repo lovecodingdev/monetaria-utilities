@@ -151,7 +151,7 @@ export class UiPoolDataProvider implements UiPoolDataProviderInterface {
         variableBorrowRate: reserveRaw.variableBorrowRate.toString(),
         stableBorrowRate: reserveRaw.stableBorrowRate.toString(),
         lastUpdateTimestamp: reserveRaw.lastUpdateTimestamp,
-        aTokenAddress: reserveRaw.aTokenAddress.toString(),
+        mTokenAddress: reserveRaw.mTokenAddress.toString(),
         stableDebtTokenAddress: reserveRaw.stableDebtTokenAddress.toString(),
         variableDebtTokenAddress:
           reserveRaw.variableDebtTokenAddress.toString(),
@@ -203,7 +203,7 @@ export class UiPoolDataProvider implements UiPoolDataProviderInterface {
     return userReservesRaw.map((userReserveRaw: UserReserveData) => ({
       id: `${this.chainId}-${user}-${userReserveRaw.underlyingAsset}-${lendingPoolAddressProvider}`.toLowerCase(),
       underlyingAsset: userReserveRaw.underlyingAsset.toLowerCase(),
-      scaledATokenBalance: userReserveRaw.scaledATokenBalance.toString(),
+      scaledMTokenBalance: userReserveRaw.scaledMTokenBalance.toString(),
       usageAsCollateralEnabledOnUser:
         userReserveRaw.usageAsCollateralEnabledOnUser,
       stableBorrowRate: userReserveRaw.stableBorrowRate.toString(),

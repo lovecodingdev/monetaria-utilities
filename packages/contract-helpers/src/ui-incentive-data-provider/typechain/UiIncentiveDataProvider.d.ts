@@ -200,7 +200,7 @@ export class UiIncentiveDataProvider extends Contract {
       }[];
       1: {
         underlyingAsset: string;
-        aTokenIncentivesUserData: {
+        mTokenIncentivesUserData: {
           tokenincentivesUserIndex: BigNumber;
           userUnclaimedRewards: BigNumber;
           tokenAddress: string;
@@ -419,7 +419,7 @@ export class UiIncentiveDataProvider extends Contract {
       }[];
       1: {
         underlyingAsset: string;
-        aTokenIncentivesUserData: {
+        mTokenIncentivesUserData: {
           tokenincentivesUserIndex: BigNumber;
           userUnclaimedRewards: BigNumber;
           tokenAddress: string;
@@ -774,7 +774,7 @@ export class UiIncentiveDataProvider extends Contract {
     ): Promise<{
       0: {
         underlyingAsset: string;
-        aTokenIncentivesUserData: {
+        mTokenIncentivesUserData: {
           tokenincentivesUserIndex: BigNumber;
           userUnclaimedRewards: BigNumber;
           tokenAddress: string;
@@ -869,7 +869,7 @@ export class UiIncentiveDataProvider extends Contract {
     ): Promise<{
       0: {
         underlyingAsset: string;
-        aTokenIncentivesUserData: {
+        mTokenIncentivesUserData: {
           tokenincentivesUserIndex: BigNumber;
           userUnclaimedRewards: BigNumber;
           tokenAddress: string;
@@ -1089,7 +1089,7 @@ export class UiIncentiveDataProvider extends Contract {
     }[];
     1: {
       underlyingAsset: string;
-      aTokenIncentivesUserData: {
+      mTokenIncentivesUserData: {
         tokenincentivesUserIndex: BigNumber;
         userUnclaimedRewards: BigNumber;
         tokenAddress: string;
@@ -1308,7 +1308,7 @@ export class UiIncentiveDataProvider extends Contract {
     }[];
     1: {
       underlyingAsset: string;
-      aTokenIncentivesUserData: {
+      mTokenIncentivesUserData: {
         tokenincentivesUserIndex: BigNumber;
         userUnclaimedRewards: BigNumber;
         tokenAddress: string;
@@ -1663,7 +1663,7 @@ export class UiIncentiveDataProvider extends Contract {
   ): Promise<
     {
       underlyingAsset: string;
-      aTokenIncentivesUserData: {
+      mTokenIncentivesUserData: {
         tokenincentivesUserIndex: BigNumber;
         userUnclaimedRewards: BigNumber;
         tokenAddress: string;
@@ -1758,7 +1758,7 @@ export class UiIncentiveDataProvider extends Contract {
   ): Promise<
     {
       underlyingAsset: string;
-      aTokenIncentivesUserData: {
+      mTokenIncentivesUserData: {
         tokenincentivesUserIndex: BigNumber;
         userUnclaimedRewards: BigNumber;
         tokenAddress: string;
@@ -1978,7 +1978,7 @@ export class UiIncentiveDataProvider extends Contract {
       }[];
       1: {
         underlyingAsset: string;
-        aTokenIncentivesUserData: {
+        mTokenIncentivesUserData: {
           tokenincentivesUserIndex: BigNumber;
           userUnclaimedRewards: BigNumber;
           tokenAddress: string;
@@ -2197,7 +2197,7 @@ export class UiIncentiveDataProvider extends Contract {
       }[];
       1: {
         underlyingAsset: string;
-        aTokenIncentivesUserData: {
+        mTokenIncentivesUserData: {
           tokenincentivesUserIndex: BigNumber;
           userUnclaimedRewards: BigNumber;
           tokenAddress: string;
@@ -2552,7 +2552,7 @@ export class UiIncentiveDataProvider extends Contract {
     ): Promise<
       {
         underlyingAsset: string;
-        aTokenIncentivesUserData: {
+        mTokenIncentivesUserData: {
           tokenincentivesUserIndex: BigNumber;
           userUnclaimedRewards: BigNumber;
           tokenAddress: string;
@@ -2647,7 +2647,7 @@ export class UiIncentiveDataProvider extends Contract {
     ): Promise<
       {
         underlyingAsset: string;
-        aTokenIncentivesUserData: {
+        mTokenIncentivesUserData: {
           tokenincentivesUserIndex: BigNumber;
           userUnclaimedRewards: BigNumber;
           tokenAddress: string;
