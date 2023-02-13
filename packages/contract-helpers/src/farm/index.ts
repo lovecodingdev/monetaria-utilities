@@ -61,16 +61,6 @@ export type FarmingConfig = {
   WETH_GATEWAY?: tEthereumAddress;
 };
 
-const buildWorkDataParams = (
-  strategyAddress: tEthereumAddress,
-  encodedStrategyParams: BigNumberish,
-) => {
-  return utils.defaultAbiCoder.encode(
-    ['address', 'bytes'],
-    [strategyAddress, encodedStrategyParams],
-  );
-};
-
 export class Farming extends BaseService<IFarming> implements FarmingInterface {
   readonly erc20Service: IERC20ServiceInterface;
 
@@ -139,6 +129,7 @@ export class Farming extends BaseService<IFarming> implements FarmingInterface {
       this.farmingAddress,
     );
 
+    // TODO: calcurate minOutputAmount from FarmInteractionCalculator;
     const minOutputAmount = '0';
     const encodedStrategyParams = ethers.utils.defaultAbiCoder.encode(
       ['uint256', 'uint256'],
