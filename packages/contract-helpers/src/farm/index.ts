@@ -102,7 +102,6 @@ export class Farming extends BaseService<IFarming> implements FarmingInterface {
     @isEthAddress('strategyAddress')
     @isPositiveAmount('borrowAmount')
     @isPositiveAmount('farmingAmount')
-    @isPositiveAmount('maxReturn')
     {
       user,
       mTokenAddress,
