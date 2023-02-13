@@ -12,182 +12,182 @@ import type {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
+} from 'ethers';
 import type {
   FunctionFragment,
   Result,
   EventFragment,
-} from "@ethersproject/abi";
-import type { Listener, Provider } from "@ethersproject/providers";
+} from '@ethersproject/abi';
+import type { Listener, Provider } from '@ethersproject/providers';
 import type {
   TypedEventFilter,
   TypedEvent,
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../common";
+} from '../../common';
 
 export interface FarmingInterface extends utils.Interface {
   functions: {
-    "POSITION_ID()": FunctionFragment;
-    "STRATEGY()": FunctionFragment;
-    "_IN_EXEC_LOCK()": FunctionFragment;
-    "addCollateral(uint256,uint256,bool,bytes)": FunctionFragment;
-    "config()": FunctionFragment;
-    "debtShareToVal(uint256)": FunctionFragment;
-    "debtValToShare(uint256)": FunctionFragment;
-    "initialize(address)": FunctionFragment;
-    "kill(uint256)": FunctionFragment;
-    "lastAccrueTime()": FunctionFragment;
-    "nextPositionID()": FunctionFragment;
-    "owner()": FunctionFragment;
-    "pendingInterest(uint256)": FunctionFragment;
-    "positionInfo(uint256)": FunctionFragment;
-    "positions(uint256)": FunctionFragment;
-    "reduceReserve(uint256)": FunctionFragment;
-    "renounceOwnership()": FunctionFragment;
-    "requestFunds(address,uint256)": FunctionFragment;
-    "reservePool()": FunctionFragment;
-    "token()": FunctionFragment;
-    "totalToken()": FunctionFragment;
-    "transferOwnership(address)": FunctionFragment;
-    "updateConfig(address)": FunctionFragment;
-    "vaultDebtShare()": FunctionFragment;
-    "vaultDebtVal()": FunctionFragment;
-    "withdrawReserve(address,uint256)": FunctionFragment;
-    "work(uint256,address,address,uint256,uint256,uint256,bytes)": FunctionFragment;
+    'POSITION_ID()': FunctionFragment;
+    'STRATEGY()': FunctionFragment;
+    '_IN_EXEC_LOCK()': FunctionFragment;
+    'addCollateral(uint256,uint256,bool,bytes)': FunctionFragment;
+    'config()': FunctionFragment;
+    'debtShareToVal(uint256)': FunctionFragment;
+    'debtValToShare(uint256)': FunctionFragment;
+    'initialize(address)': FunctionFragment;
+    'kill(uint256)': FunctionFragment;
+    'lastAccrueTime()': FunctionFragment;
+    'nextPositionID()': FunctionFragment;
+    'owner()': FunctionFragment;
+    'pendingInterest(uint256)': FunctionFragment;
+    'positionInfo(uint256)': FunctionFragment;
+    'positions(uint256)': FunctionFragment;
+    'reduceReserve(uint256)': FunctionFragment;
+    'renounceOwnership()': FunctionFragment;
+    'requestFunds(address,uint256)': FunctionFragment;
+    'reservePool()': FunctionFragment;
+    'token()': FunctionFragment;
+    'totalToken()': FunctionFragment;
+    'transferOwnership(address)': FunctionFragment;
+    'updateConfig(address)': FunctionFragment;
+    'vaultDebtShare()': FunctionFragment;
+    'vaultDebtVal()': FunctionFragment;
+    'withdrawReserve(address,uint256)': FunctionFragment;
+    'work(uint256,address,address,uint256,uint256,uint256,bytes)': FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "POSITION_ID"
-      | "STRATEGY"
-      | "_IN_EXEC_LOCK"
-      | "addCollateral"
-      | "config"
-      | "debtShareToVal"
-      | "debtValToShare"
-      | "initialize"
-      | "kill"
-      | "lastAccrueTime"
-      | "nextPositionID"
-      | "owner"
-      | "pendingInterest"
-      | "positionInfo"
-      | "positions"
-      | "reduceReserve"
-      | "renounceOwnership"
-      | "requestFunds"
-      | "reservePool"
-      | "token"
-      | "totalToken"
-      | "transferOwnership"
-      | "updateConfig"
-      | "vaultDebtShare"
-      | "vaultDebtVal"
-      | "withdrawReserve"
-      | "work"
+      | 'POSITION_ID'
+      | 'STRATEGY'
+      | '_IN_EXEC_LOCK'
+      | 'addCollateral'
+      | 'config'
+      | 'debtShareToVal'
+      | 'debtValToShare'
+      | 'initialize'
+      | 'kill'
+      | 'lastAccrueTime'
+      | 'nextPositionID'
+      | 'owner'
+      | 'pendingInterest'
+      | 'positionInfo'
+      | 'positions'
+      | 'reduceReserve'
+      | 'renounceOwnership'
+      | 'requestFunds'
+      | 'reservePool'
+      | 'token'
+      | 'totalToken'
+      | 'transferOwnership'
+      | 'updateConfig'
+      | 'vaultDebtShare'
+      | 'vaultDebtVal'
+      | 'withdrawReserve'
+      | 'work',
   ): FunctionFragment;
 
   encodeFunctionData(
-    functionFragment: "POSITION_ID",
-    values?: undefined
+    functionFragment: 'POSITION_ID',
+    values?: undefined,
   ): string;
-  encodeFunctionData(functionFragment: "STRATEGY", values?: undefined): string;
+  encodeFunctionData(functionFragment: 'STRATEGY', values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "_IN_EXEC_LOCK",
-    values?: undefined
+    functionFragment: '_IN_EXEC_LOCK',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "addCollateral",
+    functionFragment: 'addCollateral',
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<boolean>,
-      PromiseOrValue<BytesLike>
-    ]
+      PromiseOrValue<BytesLike>,
+    ],
   ): string;
-  encodeFunctionData(functionFragment: "config", values?: undefined): string;
+  encodeFunctionData(functionFragment: 'config', values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "debtShareToVal",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "debtValToShare",
-    values: [PromiseOrValue<BigNumberish>]
+    functionFragment: 'debtShareToVal',
+    values: [PromiseOrValue<BigNumberish>],
   ): string;
   encodeFunctionData(
-    functionFragment: "initialize",
-    values: [PromiseOrValue<string>]
+    functionFragment: 'debtValToShare',
+    values: [PromiseOrValue<BigNumberish>],
   ): string;
   encodeFunctionData(
-    functionFragment: "kill",
-    values: [PromiseOrValue<BigNumberish>]
+    functionFragment: 'initialize',
+    values: [PromiseOrValue<string>],
   ): string;
   encodeFunctionData(
-    functionFragment: "lastAccrueTime",
-    values?: undefined
+    functionFragment: 'kill',
+    values: [PromiseOrValue<BigNumberish>],
   ): string;
   encodeFunctionData(
-    functionFragment: "nextPositionID",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "pendingInterest",
-    values: [PromiseOrValue<BigNumberish>]
+    functionFragment: 'lastAccrueTime',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "positionInfo",
-    values: [PromiseOrValue<BigNumberish>]
+    functionFragment: 'nextPositionID',
+    values?: undefined,
+  ): string;
+  encodeFunctionData(functionFragment: 'owner', values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: 'pendingInterest',
+    values: [PromiseOrValue<BigNumberish>],
   ): string;
   encodeFunctionData(
-    functionFragment: "positions",
-    values: [PromiseOrValue<BigNumberish>]
+    functionFragment: 'positionInfo',
+    values: [PromiseOrValue<BigNumberish>],
   ): string;
   encodeFunctionData(
-    functionFragment: "reduceReserve",
-    values: [PromiseOrValue<BigNumberish>]
+    functionFragment: 'positions',
+    values: [PromiseOrValue<BigNumberish>],
   ): string;
   encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
+    functionFragment: 'reduceReserve',
+    values: [PromiseOrValue<BigNumberish>],
   ): string;
   encodeFunctionData(
-    functionFragment: "requestFunds",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    functionFragment: 'renounceOwnership',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "reservePool",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "token", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "totalToken",
-    values?: undefined
+    functionFragment: 'requestFunds',
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>],
   ): string;
   encodeFunctionData(
-    functionFragment: "transferOwnership",
-    values: [PromiseOrValue<string>]
+    functionFragment: 'reservePool',
+    values?: undefined,
+  ): string;
+  encodeFunctionData(functionFragment: 'token', values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: 'totalToken',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "updateConfig",
-    values: [PromiseOrValue<string>]
+    functionFragment: 'transferOwnership',
+    values: [PromiseOrValue<string>],
   ): string;
   encodeFunctionData(
-    functionFragment: "vaultDebtShare",
-    values?: undefined
+    functionFragment: 'updateConfig',
+    values: [PromiseOrValue<string>],
   ): string;
   encodeFunctionData(
-    functionFragment: "vaultDebtVal",
-    values?: undefined
+    functionFragment: 'vaultDebtShare',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "withdrawReserve",
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    functionFragment: 'vaultDebtVal',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "work",
+    functionFragment: 'withdrawReserve',
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>],
+  ): string;
+  encodeFunctionData(
+    functionFragment: 'work',
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>,
@@ -195,109 +195,109 @@ export interface FarmingInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>
-    ]
+      PromiseOrValue<BytesLike>,
+    ],
   ): string;
 
   decodeFunctionResult(
-    functionFragment: "POSITION_ID",
-    data: BytesLike
+    functionFragment: 'POSITION_ID',
+    data: BytesLike,
   ): Result;
-  decodeFunctionResult(functionFragment: "STRATEGY", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'STRATEGY', data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "_IN_EXEC_LOCK",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "addCollateral",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "config", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "debtShareToVal",
-    data: BytesLike
+    functionFragment: '_IN_EXEC_LOCK',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "debtValToShare",
-    data: BytesLike
+    functionFragment: 'addCollateral',
+    data: BytesLike,
   ): Result;
-  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "kill", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'config', data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "lastAccrueTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "nextPositionID",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "pendingInterest",
-    data: BytesLike
+    functionFragment: 'debtShareToVal',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "positionInfo",
-    data: BytesLike
+    functionFragment: 'debtValToShare',
+    data: BytesLike,
   ): Result;
-  decodeFunctionResult(functionFragment: "positions", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'kill', data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "reduceReserve",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceOwnership",
-    data: BytesLike
+    functionFragment: 'lastAccrueTime',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "requestFunds",
-    data: BytesLike
+    functionFragment: 'nextPositionID',
+    data: BytesLike,
+  ): Result;
+  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: 'pendingInterest',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "reservePool",
-    data: BytesLike
+    functionFragment: 'positionInfo',
+    data: BytesLike,
   ): Result;
-  decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "totalToken", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'positions', data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "transferOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateConfig",
-    data: BytesLike
+    functionFragment: 'reduceReserve',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "vaultDebtShare",
-    data: BytesLike
+    functionFragment: 'renounceOwnership',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "vaultDebtVal",
-    data: BytesLike
+    functionFragment: 'requestFunds',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "withdrawReserve",
-    data: BytesLike
+    functionFragment: 'reservePool',
+    data: BytesLike,
   ): Result;
-  decodeFunctionResult(functionFragment: "work", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'token', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'totalToken', data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: 'transferOwnership',
+    data: BytesLike,
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: 'updateConfig',
+    data: BytesLike,
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: 'vaultDebtShare',
+    data: BytesLike,
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: 'vaultDebtVal',
+    data: BytesLike,
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: 'withdrawReserve',
+    data: BytesLike,
+  ): Result;
+  decodeFunctionResult(functionFragment: 'work', data: BytesLike): Result;
 
   events: {
-    "AddCollateral(uint256,uint256,uint256,uint256)": EventFragment;
-    "AddDebt(uint256,uint256)": EventFragment;
-    "Initialized(uint8)": EventFragment;
-    "Kill(uint256,address,address,uint256,uint256,uint256,uint256)": EventFragment;
-    "OwnershipTransferred(address,address)": EventFragment;
-    "RemoveDebt(uint256,uint256)": EventFragment;
-    "Work(uint256,uint256)": EventFragment;
+    'AddCollateral(uint256,uint256,uint256,uint256)': EventFragment;
+    'AddDebt(uint256,uint256)': EventFragment;
+    'Initialized(uint8)': EventFragment;
+    'Kill(uint256,address,address,uint256,uint256,uint256,uint256)': EventFragment;
+    'OwnershipTransferred(address,address)': EventFragment;
+    'RemoveDebt(uint256,uint256)': EventFragment;
+    'Work(uint256,uint256)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "AddCollateral"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "AddDebt"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Kill"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RemoveDebt"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Work"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'AddCollateral'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'AddDebt'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'Initialized'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'Kill'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'RemoveDebt'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'Work'): EventFragment;
 }
 
 export interface AddCollateralEventObject {
@@ -388,15 +388,15 @@ export interface Farming extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
+    eventFilter?: TypedEventFilter<TEvent>,
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
   removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
+    eventFilter: TypedEventFilter<TEvent>,
   ): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
@@ -416,29 +416,29 @@ export interface Farming extends BaseContract {
       amount: PromiseOrValue<BigNumberish>,
       goRogue: PromiseOrValue<boolean>,
       data: PromiseOrValue<BytesLike>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     config(overrides?: CallOverrides): Promise<[string]>;
 
     debtShareToVal(
       debtShare: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     debtValToShare(
       debtVal: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     initialize(
       _config: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     kill(
       id: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     lastAccrueTime(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -449,17 +449,17 @@ export interface Farming extends BaseContract {
 
     pendingInterest(
       value: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     positionInfo(
       id: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber]>;
 
     positions(
       arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [string, string, string, BigNumber] & {
         mToken: string;
@@ -471,17 +471,17 @@ export interface Farming extends BaseContract {
 
     reduceReserve(
       value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     requestFunds(
       targetedToken: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     reservePool(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -492,12 +492,12 @@ export interface Farming extends BaseContract {
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     updateConfig(
       _config: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     vaultDebtShare(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -507,7 +507,7 @@ export interface Farming extends BaseContract {
     withdrawReserve(
       to: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     work(
@@ -518,7 +518,7 @@ export interface Farming extends BaseContract {
       borrowAmount: PromiseOrValue<BigNumberish>,
       maxReturn: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -533,29 +533,29 @@ export interface Farming extends BaseContract {
     amount: PromiseOrValue<BigNumberish>,
     goRogue: PromiseOrValue<boolean>,
     data: PromiseOrValue<BytesLike>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   config(overrides?: CallOverrides): Promise<string>;
 
   debtShareToVal(
     debtShare: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   debtValToShare(
     debtVal: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   initialize(
     _config: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   kill(
     id: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   lastAccrueTime(overrides?: CallOverrides): Promise<BigNumber>;
@@ -566,17 +566,17 @@ export interface Farming extends BaseContract {
 
   pendingInterest(
     value: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   positionInfo(
     id: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<[BigNumber, BigNumber]>;
 
   positions(
     arg0: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [string, string, string, BigNumber] & {
       mToken: string;
@@ -588,17 +588,17 @@ export interface Farming extends BaseContract {
 
   reduceReserve(
     value: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   renounceOwnership(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   requestFunds(
     targetedToken: PromiseOrValue<string>,
     amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   reservePool(overrides?: CallOverrides): Promise<BigNumber>;
@@ -609,12 +609,12 @@ export interface Farming extends BaseContract {
 
   transferOwnership(
     newOwner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   updateConfig(
     _config: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   vaultDebtShare(overrides?: CallOverrides): Promise<BigNumber>;
@@ -624,7 +624,7 @@ export interface Farming extends BaseContract {
   withdrawReserve(
     to: PromiseOrValue<string>,
     value: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   work(
@@ -635,7 +635,7 @@ export interface Farming extends BaseContract {
     borrowAmount: PromiseOrValue<BigNumberish>,
     maxReturn: PromiseOrValue<BigNumberish>,
     data: PromiseOrValue<BytesLike>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -650,29 +650,29 @@ export interface Farming extends BaseContract {
       amount: PromiseOrValue<BigNumberish>,
       goRogue: PromiseOrValue<boolean>,
       data: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     config(overrides?: CallOverrides): Promise<string>;
 
     debtShareToVal(
       debtShare: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     debtValToShare(
       debtVal: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     initialize(
       _config: PromiseOrValue<string>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     kill(
       id: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     lastAccrueTime(overrides?: CallOverrides): Promise<BigNumber>;
@@ -683,17 +683,17 @@ export interface Farming extends BaseContract {
 
     pendingInterest(
       value: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     positionInfo(
       id: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber]>;
 
     positions(
       arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [string, string, string, BigNumber] & {
         mToken: string;
@@ -705,7 +705,7 @@ export interface Farming extends BaseContract {
 
     reduceReserve(
       value: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
@@ -713,7 +713,7 @@ export interface Farming extends BaseContract {
     requestFunds(
       targetedToken: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     reservePool(overrides?: CallOverrides): Promise<BigNumber>;
@@ -724,12 +724,12 @@ export interface Farming extends BaseContract {
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     updateConfig(
       _config: PromiseOrValue<string>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     vaultDebtShare(overrides?: CallOverrides): Promise<BigNumber>;
@@ -739,7 +739,7 @@ export interface Farming extends BaseContract {
     withdrawReserve(
       to: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     work(
@@ -750,44 +750,44 @@ export interface Farming extends BaseContract {
       borrowAmount: PromiseOrValue<BigNumberish>,
       maxReturn: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
   };
 
   filters: {
-    "AddCollateral(uint256,uint256,uint256,uint256)"(
+    'AddCollateral(uint256,uint256,uint256,uint256)'(
       id?: PromiseOrValue<BigNumberish> | null,
       amount?: null,
       healthBefore?: null,
-      healthAfter?: null
+      healthAfter?: null,
     ): AddCollateralEventFilter;
     AddCollateral(
       id?: PromiseOrValue<BigNumberish> | null,
       amount?: null,
       healthBefore?: null,
-      healthAfter?: null
+      healthAfter?: null,
     ): AddCollateralEventFilter;
 
-    "AddDebt(uint256,uint256)"(
+    'AddDebt(uint256,uint256)'(
       id?: PromiseOrValue<BigNumberish> | null,
-      debtShare?: null
+      debtShare?: null,
     ): AddDebtEventFilter;
     AddDebt(
       id?: PromiseOrValue<BigNumberish> | null,
-      debtShare?: null
+      debtShare?: null,
     ): AddDebtEventFilter;
 
-    "Initialized(uint8)"(version?: null): InitializedEventFilter;
+    'Initialized(uint8)'(version?: null): InitializedEventFilter;
     Initialized(version?: null): InitializedEventFilter;
 
-    "Kill(uint256,address,address,uint256,uint256,uint256,uint256)"(
+    'Kill(uint256,address,address,uint256,uint256,uint256,uint256)'(
       id?: PromiseOrValue<BigNumberish> | null,
       killer?: PromiseOrValue<string> | null,
       owner?: null,
       posVal?: null,
       debt?: null,
       prize?: null,
-      left?: null
+      left?: null,
     ): KillEventFilter;
     Kill(
       id?: PromiseOrValue<BigNumberish> | null,
@@ -796,34 +796,34 @@ export interface Farming extends BaseContract {
       posVal?: null,
       debt?: null,
       prize?: null,
-      left?: null
+      left?: null,
     ): KillEventFilter;
 
-    "OwnershipTransferred(address,address)"(
+    'OwnershipTransferred(address,address)'(
       previousOwner?: PromiseOrValue<string> | null,
-      newOwner?: PromiseOrValue<string> | null
+      newOwner?: PromiseOrValue<string> | null,
     ): OwnershipTransferredEventFilter;
     OwnershipTransferred(
       previousOwner?: PromiseOrValue<string> | null,
-      newOwner?: PromiseOrValue<string> | null
+      newOwner?: PromiseOrValue<string> | null,
     ): OwnershipTransferredEventFilter;
 
-    "RemoveDebt(uint256,uint256)"(
+    'RemoveDebt(uint256,uint256)'(
       id?: PromiseOrValue<BigNumberish> | null,
-      debtShare?: null
+      debtShare?: null,
     ): RemoveDebtEventFilter;
     RemoveDebt(
       id?: PromiseOrValue<BigNumberish> | null,
-      debtShare?: null
+      debtShare?: null,
     ): RemoveDebtEventFilter;
 
-    "Work(uint256,uint256)"(
+    'Work(uint256,uint256)'(
       id?: PromiseOrValue<BigNumberish> | null,
-      loan?: null
+      loan?: null,
     ): WorkEventFilter;
     Work(
       id?: PromiseOrValue<BigNumberish> | null,
-      loan?: null
+      loan?: null,
     ): WorkEventFilter;
   };
 
@@ -839,29 +839,29 @@ export interface Farming extends BaseContract {
       amount: PromiseOrValue<BigNumberish>,
       goRogue: PromiseOrValue<boolean>,
       data: PromiseOrValue<BytesLike>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     config(overrides?: CallOverrides): Promise<BigNumber>;
 
     debtShareToVal(
       debtShare: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     debtValToShare(
       debtVal: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     initialize(
       _config: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     kill(
       id: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     lastAccrueTime(overrides?: CallOverrides): Promise<BigNumber>;
@@ -872,32 +872,32 @@ export interface Farming extends BaseContract {
 
     pendingInterest(
       value: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     positionInfo(
       id: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     positions(
       arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     reduceReserve(
       value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     requestFunds(
       targetedToken: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     reservePool(overrides?: CallOverrides): Promise<BigNumber>;
@@ -908,12 +908,12 @@ export interface Farming extends BaseContract {
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     updateConfig(
       _config: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     vaultDebtShare(overrides?: CallOverrides): Promise<BigNumber>;
@@ -923,7 +923,7 @@ export interface Farming extends BaseContract {
     withdrawReserve(
       to: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     work(
@@ -934,7 +934,7 @@ export interface Farming extends BaseContract {
       borrowAmount: PromiseOrValue<BigNumberish>,
       maxReturn: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
   };
 
@@ -950,29 +950,29 @@ export interface Farming extends BaseContract {
       amount: PromiseOrValue<BigNumberish>,
       goRogue: PromiseOrValue<boolean>,
       data: PromiseOrValue<BytesLike>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     config(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     debtShareToVal(
       debtShare: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     debtValToShare(
       debtVal: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     initialize(
       _config: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     kill(
       id: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     lastAccrueTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -983,32 +983,32 @@ export interface Farming extends BaseContract {
 
     pendingInterest(
       value: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     positionInfo(
       id: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     positions(
       arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     reduceReserve(
       value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     requestFunds(
       targetedToken: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     reservePool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1019,12 +1019,12 @@ export interface Farming extends BaseContract {
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     updateConfig(
       _config: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     vaultDebtShare(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1034,7 +1034,7 @@ export interface Farming extends BaseContract {
     withdrawReserve(
       to: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     work(
@@ -1045,7 +1045,7 @@ export interface Farming extends BaseContract {
       borrowAmount: PromiseOrValue<BigNumberish>,
       maxReturn: PromiseOrValue<BigNumberish>,
       data: PromiseOrValue<BytesLike>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
   };
 }
