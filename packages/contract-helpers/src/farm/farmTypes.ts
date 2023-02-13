@@ -7,10 +7,10 @@ import {
 } from '../commons/types';
 
 export type WorkParamsType = {
-  mToken: tEthereumAddress;
-  worker: tEthereumAddress;
-  principalAmount: string;
+  user: tEthereumAddress;
+  mTokenAddress: tEthereumAddress;
+  workerAddress: tEthereumAddress;
+  strategyAddress: tEthereumAddress;
   borrowAmount: string;
-  maxReturn: string;
-  strategy: tEthereumAddress;
+  farmingAmount: string;
 };
