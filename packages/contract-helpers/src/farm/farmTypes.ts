@@ -1,10 +1,4 @@
-import { SignatureLike } from '@ethersproject/bytes';
-import { BytesLike } from 'ethers';
-import {
-  tEthereumAddress,
-  InterestRate,
-  PermitSignature,
-} from '../commons/types';
+import { tEthereumAddress } from '../commons/types';
 
 export type WorkParamsType = {
   user: tEthereumAddress;

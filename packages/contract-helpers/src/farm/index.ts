@@ -1,47 +1,19 @@
-import { BytesLike, Signature, splitSignature } from '@ethersproject/bytes';
-import { BigNumberish, constants, ethers, providers, utils } from 'ethers';
+import { ethers, providers } from 'ethers';
 import BaseService from '../commons/BaseService';
 import {
   eEthereumTxType,
   EthereumTransactionTypeExtended,
-  InterestRate,
   ProtocolAction,
   tEthereumAddress,
   transactionType,
 } from '../commons/types';
+import { DEFAULT_APPROVE_AMOUNT } from '../commons/utils';
+import { LPValidatorV3 } from '../commons/validators/methodValidators';
 import {
-  API_ETH_MOCK_ADDRESS,
-  augustusToAmountOffsetFromCalldata,
-  DEFAULT_APPROVE_AMOUNT,
-  getTxValue,
-  SURPLUS,
-  valueToWei,
-} from '../commons/utils';
-import {
-  LPFlashLiquidationValidatorV3,
-  LPRepayWithCollateralValidatorV3,
-  LPSwapCollateralValidatorV3,
-  LPValidatorV3,
-} from '../commons/validators/methodValidators';
-import {
-  is0OrPositiveAmount,
   isEthAddress,
   isPositiveAmount,
-  isPositiveOrMinusOneAmount,
 } from '../commons/validators/paramValidators';
-import { ERC20_2612Service, ERC20_2612Interface } from '../erc20-2612';
 import { ERC20Service, IERC20ServiceInterface } from '../erc20-contract';
-import {
-  augustusFromAmountOffsetFromCalldata,
-  LiquiditySwapAdapterInterface,
-  LiquiditySwapAdapterService,
-} from '../paraswap-liquiditySwapAdapter-contract';
-import {
-  ParaswapRepayWithCollateral,
-  ParaswapRepayWithCollateralInterface,
-} from '../paraswap-repayWithCollateralAdapter-contract';
-import { SynthetixInterface, SynthetixService } from '../synthetix-contract';
-import { L2Pool, L2PoolInterface } from '../v3-pool-rollups';
 import {
   WETHGatewayInterface,
   WETHGatewayService,
@@ -49,7 +21,6 @@ import {
 import { WorkParamsType } from './farmTypes';
 import { Farming as IFarming } from './typechain/Farming';
 import { Farming__factory as IFarming__factory } from './typechain/Farming__factory';
-import { IWorker02 } from './typechain/IWorker02';
 import { IWorker02__factory } from './typechain/IWorker02__factory';
 
 export interface FarmingInterface {
@@ -101,8 +72,7 @@ export class Farming extends BaseService<IFarming> implements FarmingInterface {
       farmingAmount,
     }: WorkParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
-    const { isApproved, approve, decimalsOf }: IERC20ServiceInterface =
-      this.erc20Service;
+    const { isApproved, approve }: IERC20ServiceInterface = this.erc20Service;
     const txs: EthereumTransactionTypeExtended[] = [];
     // const reserveDecimals: number = await decimalsOf(reserve);
     // const convertedAmount: string = valueToWei(amount, reserveDecimals);
