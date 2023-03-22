@@ -1,4 +1,4 @@
-import { ethers, providers } from 'ethers';
+import { providers } from 'ethers';
 import BaseService from '../commons/BaseService';
 import {
   eEthereumTxType,
@@ -7,23 +7,13 @@ import {
   tEthereumAddress,
   transactionType,
 } from '../commons/types';
-import {
-  API_ETH_MOCK_ADDRESS,
-  augustusToAmountOffsetFromCalldata,
-  DEFAULT_APPROVE_AMOUNT,
-  getTxValue,
-  SURPLUS,
-  valueToWei,
-} from '../commons/utils';
+import { DEFAULT_APPROVE_AMOUNT, valueToWei } from '../commons/utils';
 import {
   isEthAddress,
   isPositiveAmount,
 } from '../commons/validators/paramValidators';
 import { ERC20Service, IERC20ServiceInterface } from '../erc20-contract';
-import {
-  WETHGatewayInterface,
-  WETHGatewayService,
-} from '../wethgateway-contract';
+import { WETHGatewayInterface } from '../wethgateway-contract';
 import {
   CreateLockParamsType,
   IncreaseAmountParamsType,
@@ -51,7 +41,7 @@ export interface VotingEscrowInterface {
 
 export type VotingEscrowConfig = {
   VOTING_ESCROW: tEthereumAddress;
-  MNT_ADDRESS: tEthereumAddress;
+  MNT: tEthereumAddress;
 };
 
 export class VotingEscrow
@@ -71,10 +61,10 @@ export class VotingEscrow
   ) {
     super(provider, IVotingEscrow__factory);
 
-    const { VOTING_ESCROW, MNT_ADDRESS } = votingEscrowConfig ?? {};
+    const { VOTING_ESCROW, MNT } = votingEscrowConfig ?? {};
 
     this.votingEscrowAddress = VOTING_ESCROW ?? '';
-    this.mntAddress = MNT_ADDRESS ?? '';
+    this.mntAddress = MNT ?? '';
 
     // initialize services
     this.erc20Service = new ERC20Service(provider);
