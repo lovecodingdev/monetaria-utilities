@@ -20,7 +20,7 @@ import {
 } from './types/LiquidityGaugeTypes';
 import { LiquidityGauge as ILiquidityGauge } from './typechain/LiquidityGauge';
 import { LiquidityGauge__factory as ILiquidityGauge__factory } from './typechain/LiquidityGauge__factory';
-import { BigNumber } from 'bignumber.js';
+// import { BigNumber } from 'bignumber.js';
 
 export interface LiquidityGaugeInterface {
   deposit: (

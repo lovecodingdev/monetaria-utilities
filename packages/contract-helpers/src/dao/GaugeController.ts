@@ -22,7 +22,7 @@ export interface GaugeControllerInterface {
 }
 
 export type GaugeControllerConfig = {
-  VOTING_ESCROW: tEthereumAddress;
+  GAUGE_CONTROLLER: tEthereumAddress;
   MNT: tEthereumAddress;
 };
 
@@ -43,9 +43,9 @@ export class GaugeController
   ) {
     super(provider, IGaugeController__factory);
 
-    const { VOTING_ESCROW, MNT } = gaugeControllerConfig ?? {};
+    const { GAUGE_CONTROLLER, MNT } = gaugeControllerConfig ?? {};
 
-    this.gaugeControllerAddress = VOTING_ESCROW ?? '';
+    this.gaugeControllerAddress = GAUGE_CONTROLLER ?? '';
     this.mntAddress = MNT ?? '';
 
     // initialize services
