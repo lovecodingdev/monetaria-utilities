@@ -10,3 +10,11 @@ export type WithdrawParamsType = {
   amount: string;
   claimRewards: boolean;
 };
+
+export type CalcUpdateLiquidityLimitParamsType = {
+  user: tEthereumAddress;
+  l: string;
+  L: string;
+  veCRV: string;
+  totalveCRV: string;
+};

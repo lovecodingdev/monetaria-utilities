@@ -1,4 +1,4 @@
-import { providers } from 'ethers';
+import { BigNumber, providers } from 'ethers';
 import BaseService from '../commons/BaseService';
 import {
   eEthereumTxType,
@@ -14,13 +14,15 @@ import {
 } from '../commons/validators/paramValidators';
 import { ERC20Service, IERC20ServiceInterface } from '../erc20-contract';
 import { WETHGatewayInterface } from '../wethgateway-contract';
+import { LiquidityGauge as ILiquidityGauge } from './typechain/LiquidityGauge';
+import { LiquidityGauge__factory as ILiquidityGauge__factory } from './typechain/LiquidityGauge__factory';
 import {
+  CalcUpdateLiquidityLimitParamsType,
   DepositParamsType,
   WithdrawParamsType,
 } from './types/LiquidityGaugeTypes';
-import { LiquidityGauge as ILiquidityGauge } from './typechain/LiquidityGauge';
-import { LiquidityGauge__factory as ILiquidityGauge__factory } from './typechain/LiquidityGauge__factory';
-// import { BigNumber } from 'bignumber.js';
+import { VotingEscrow } from './VotingEscrow';
+import { VotingEscrow as IVotingEscrow } from './typechain/VotingEscrow';
 
 export interface LiquidityGaugeInterface {
   deposit: (
@@ -29,11 +31,13 @@ export interface LiquidityGaugeInterface {
   withdraw: (
     args: WithdrawParamsType,
   ) => Promise<EthereumTransactionTypeExtended[]>;
+  calcUpdateLiquidityGauge: (
+    args: CalcUpdateLiquidityLimitParamsType,
+  ) => Promise<number[]>;
 }
 
 export type LiquidityGaugeConfig = {
-  VOTING_ESCROW: tEthereumAddress;
-  MTOKEN: tEthereumAddress;
+  LIQUIDITY_GAUGE: tEthereumAddress;
 };
 
 export class LiquidityGauge
@@ -41,9 +45,9 @@ export class LiquidityGauge
   implements LiquidityGaugeInterface
 {
   readonly erc20Service: IERC20ServiceInterface;
+  readonly votingEscrow: VotingEscrow;
 
   readonly liquidityGaugeAddress: string;
-  readonly mTokenAddress: string;
 
   readonly wethGatewayService: WETHGatewayInterface;
 
@@ -53,13 +57,13 @@ export class LiquidityGauge
   ) {
     super(provider, ILiquidityGauge__factory);
 
-    const { VOTING_ESCROW, MTOKEN } = liquidityGaugeConfig ?? {};
+    const { LIQUIDITY_GAUGE } = liquidityGaugeConfig ?? {};
 
-    this.liquidityGaugeAddress = VOTING_ESCROW ?? '';
-    this.mTokenAddress = MTOKEN ?? '';
+    this.liquidityGaugeAddress = LIQUIDITY_GAUGE ?? '';
 
     // initialize services
     this.erc20Service = new ERC20Service(provider);
+    this.votingEscrow = new VotingEscrow(provider);
   }
 
   public async deposit(
@@ -67,14 +71,20 @@ export class LiquidityGauge
     @isPositiveAmount('amount')
     { user, amount }: DepositParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
+    const liquidityGaugeContract: ILiquidityGauge = this.getContractInstance(
+      this.liquidityGaugeAddress,
+    );
+
+    let mTokenAddress = await liquidityGaugeContract.lp_token();
+
     const { isApproved, approve, decimalsOf }: IERC20ServiceInterface =
       this.erc20Service;
     const txs: EthereumTransactionTypeExtended[] = [];
-    const mTokenDecimals: number = await decimalsOf(this.mTokenAddress);
+    const mTokenDecimals: number = await decimalsOf(mTokenAddress);
     const convertedAmount: string = valueToWei(amount, mTokenDecimals);
 
     const approved = await isApproved({
-      token: this.mTokenAddress,
+      token: mTokenAddress,
       user,
       spender: this.liquidityGaugeAddress,
       amount: DEFAULT_APPROVE_AMOUNT,
@@ -83,16 +93,12 @@ export class LiquidityGauge
     if (!approved) {
       const approveTx: EthereumTransactionTypeExtended = approve({
         user,
-        token: this.mTokenAddress,
+        token: mTokenAddress,
         spender: this.liquidityGaugeAddress,
         amount: DEFAULT_APPROVE_AMOUNT,
       });
       txs.push(approveTx);
     }
-
-    const liquidityGaugeContract: ILiquidityGauge = this.getContractInstance(
-      this.liquidityGaugeAddress,
-    );
 
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>
@@ -149,5 +155,39 @@ export class LiquidityGauge
     });
 
     return txs;
+  }
+
+  public async calcUpdateLiquidityGauge(
+    @isEthAddress('user')
+    { user, l, L, veCRV, totalveCRV }: CalcUpdateLiquidityLimitParamsType,
+  ): Promise<number[]> {
+    const liquidityGaugeContract: ILiquidityGauge = this.getContractInstance(
+      this.liquidityGaugeAddress,
+    );
+
+    let workingBalances = await liquidityGaugeContract.working_balances(user);
+    let workingSupply = await liquidityGaugeContract.working_supply();
+
+    let TOKENLESS_PRODUCTION = 40;
+
+    let lim = BigNumber.from(l).mul(TOKENLESS_PRODUCTION / 100);
+    lim = lim.add(
+      BigNumber.from(L)
+        .mul(veCRV)
+        .div(totalveCRV)
+        .mul(100 - TOKENLESS_PRODUCTION)
+        .div(100),
+    );
+    if (lim.gt(BigNumber.from(l))) {
+      lim = BigNumber.from(l);
+    }
+    let old_bal = workingBalances;
+    let noboostLim = BigNumber.from(l).mul(TOKENLESS_PRODUCTION / 100);
+    let noboostSupply = workingSupply.add(noboostLim).sub(old_bal);
+    let _workingSupply = workingSupply.add(lim).sub(old_bal);
+    return [
+      _workingSupply.toNumber(),
+      lim.div(_workingSupply).div(noboostLim.div(noboostSupply)).toNumber(),
+    ];
   }
 }

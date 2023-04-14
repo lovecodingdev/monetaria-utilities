@@ -31,9 +31,15 @@ import type {
 export interface LiquidityGaugeInterface extends utils.Interface {
   functions: {
     'DOMAIN_SEPARATOR()': FunctionFragment;
+    'GAUGE_CONTROLLER()': FunctionFragment;
+    'MINTER()': FunctionFragment;
+    'MNT()': FunctionFragment;
+    'VEBOOST_PROXY()': FunctionFragment;
+    'VOTING_ESCROW()': FunctionFragment;
     'accept_transfer_ownership()': FunctionFragment;
     'add_reward(address,address)': FunctionFragment;
     'admin()': FunctionFragment;
+    'allowance(address,address)': FunctionFragment;
     'approve(address,uint256)': FunctionFragment;
     'balanceOf(address)': FunctionFragment;
     'claim_rewards(address)': FunctionFragment;
@@ -81,15 +87,22 @@ export interface LiquidityGaugeInterface extends utils.Interface {
     'version()': FunctionFragment;
     'withdraw(uint256)': FunctionFragment;
     'withdraw(uint256,bool)': FunctionFragment;
+    'working_balances(address)': FunctionFragment;
     'working_supply()': FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
       | 'DOMAIN_SEPARATOR'
+      | 'GAUGE_CONTROLLER'
+      | 'MINTER'
+      | 'MNT'
+      | 'VEBOOST_PROXY'
+      | 'VOTING_ESCROW'
       | 'accept_transfer_ownership'
       | 'add_reward'
       | 'admin'
+      | 'allowance'
       | 'approve'
       | 'balanceOf'
       | 'claim_rewards(address)'
@@ -137,11 +150,26 @@ export interface LiquidityGaugeInterface extends utils.Interface {
       | 'version'
       | 'withdraw(uint256)'
       | 'withdraw(uint256,bool)'
+      | 'working_balances'
       | 'working_supply',
   ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: 'DOMAIN_SEPARATOR',
+    values?: undefined,
+  ): string;
+  encodeFunctionData(
+    functionFragment: 'GAUGE_CONTROLLER',
+    values?: undefined,
+  ): string;
+  encodeFunctionData(functionFragment: 'MINTER', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'MNT', values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: 'VEBOOST_PROXY',
+    values?: undefined,
+  ): string;
+  encodeFunctionData(
+    functionFragment: 'VOTING_ESCROW',
     values?: undefined,
   ): string;
   encodeFunctionData(
@@ -153,6 +181,10 @@ export interface LiquidityGaugeInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<string>],
   ): string;
   encodeFunctionData(functionFragment: 'admin', values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: 'allowance',
+    values: [PromiseOrValue<string>, PromiseOrValue<string>],
+  ): string;
   encodeFunctionData(
     functionFragment: 'approve',
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>],
@@ -337,6 +369,10 @@ export interface LiquidityGaugeInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<boolean>],
   ): string;
   encodeFunctionData(
+    functionFragment: 'working_balances',
+    values: [PromiseOrValue<string>],
+  ): string;
+  encodeFunctionData(
     functionFragment: 'working_supply',
     values?: undefined,
   ): string;
@@ -346,11 +382,26 @@ export interface LiquidityGaugeInterface extends utils.Interface {
     data: BytesLike,
   ): Result;
   decodeFunctionResult(
+    functionFragment: 'GAUGE_CONTROLLER',
+    data: BytesLike,
+  ): Result;
+  decodeFunctionResult(functionFragment: 'MINTER', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'MNT', data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: 'VEBOOST_PROXY',
+    data: BytesLike,
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: 'VOTING_ESCROW',
+    data: BytesLike,
+  ): Result;
+  decodeFunctionResult(
     functionFragment: 'accept_transfer_ownership',
     data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: 'add_reward', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'admin', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
   decodeFunctionResult(
@@ -498,6 +549,10 @@ export interface LiquidityGaugeInterface extends utils.Interface {
     data: BytesLike,
   ): Result;
   decodeFunctionResult(
+    functionFragment: 'working_balances',
+    data: BytesLike,
+  ): Result;
+  decodeFunctionResult(
     functionFragment: 'working_supply',
     data: BytesLike,
   ): Result;
@@ -628,6 +683,16 @@ export interface LiquidityGauge extends BaseContract {
   functions: {
     DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<[string]>;
 
+    GAUGE_CONTROLLER(overrides?: CallOverrides): Promise<[string]>;
+
+    MINTER(overrides?: CallOverrides): Promise<[string]>;
+
+    MNT(overrides?: CallOverrides): Promise<[string]>;
+
+    VEBOOST_PROXY(overrides?: CallOverrides): Promise<[string]>;
+
+    VOTING_ESCROW(overrides?: CallOverrides): Promise<[string]>;
+
     accept_transfer_ownership(
       overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
@@ -639,6 +704,12 @@ export interface LiquidityGauge extends BaseContract {
     ): Promise<ContractTransaction>;
 
     admin(overrides?: CallOverrides): Promise<[string]>;
+
+    allowance(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      overrides?: CallOverrides,
+    ): Promise<[BigNumber]>;
 
     approve(
       _spender: PromiseOrValue<string>,
@@ -866,10 +937,25 @@ export interface LiquidityGauge extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
+    working_balances(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides,
+    ): Promise<[BigNumber]>;
+
     working_supply(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
+
+  GAUGE_CONTROLLER(overrides?: CallOverrides): Promise<string>;
+
+  MINTER(overrides?: CallOverrides): Promise<string>;
+
+  MNT(overrides?: CallOverrides): Promise<string>;
+
+  VEBOOST_PROXY(overrides?: CallOverrides): Promise<string>;
+
+  VOTING_ESCROW(overrides?: CallOverrides): Promise<string>;
 
   accept_transfer_ownership(
     overrides?: Overrides & { from?: PromiseOrValue<string> },
@@ -882,6 +968,12 @@ export interface LiquidityGauge extends BaseContract {
   ): Promise<ContractTransaction>;
 
   admin(overrides?: CallOverrides): Promise<string>;
+
+  allowance(
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<string>,
+    overrides?: CallOverrides,
+  ): Promise<BigNumber>;
 
   approve(
     _spender: PromiseOrValue<string>,
@@ -1109,10 +1201,25 @@ export interface LiquidityGauge extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
+  working_balances(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides,
+  ): Promise<BigNumber>;
+
   working_supply(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
     DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
+
+    GAUGE_CONTROLLER(overrides?: CallOverrides): Promise<string>;
+
+    MINTER(overrides?: CallOverrides): Promise<string>;
+
+    MNT(overrides?: CallOverrides): Promise<string>;
+
+    VEBOOST_PROXY(overrides?: CallOverrides): Promise<string>;
+
+    VOTING_ESCROW(overrides?: CallOverrides): Promise<string>;
 
     accept_transfer_ownership(overrides?: CallOverrides): Promise<void>;
 
@@ -1123,6 +1230,12 @@ export interface LiquidityGauge extends BaseContract {
     ): Promise<void>;
 
     admin(overrides?: CallOverrides): Promise<string>;
+
+    allowance(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      overrides?: CallOverrides,
+    ): Promise<BigNumber>;
 
     approve(
       _spender: PromiseOrValue<string>,
@@ -1348,6 +1461,11 @@ export interface LiquidityGauge extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
+    working_balances(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides,
+    ): Promise<BigNumber>;
+
     working_supply(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
@@ -1417,6 +1535,16 @@ export interface LiquidityGauge extends BaseContract {
   estimateGas: {
     DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<BigNumber>;
 
+    GAUGE_CONTROLLER(overrides?: CallOverrides): Promise<BigNumber>;
+
+    MINTER(overrides?: CallOverrides): Promise<BigNumber>;
+
+    MNT(overrides?: CallOverrides): Promise<BigNumber>;
+
+    VEBOOST_PROXY(overrides?: CallOverrides): Promise<BigNumber>;
+
+    VOTING_ESCROW(overrides?: CallOverrides): Promise<BigNumber>;
+
     accept_transfer_ownership(
       overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
@@ -1428,6 +1556,12 @@ export interface LiquidityGauge extends BaseContract {
     ): Promise<BigNumber>;
 
     admin(overrides?: CallOverrides): Promise<BigNumber>;
+
+    allowance(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      overrides?: CallOverrides,
+    ): Promise<BigNumber>;
 
     approve(
       _spender: PromiseOrValue<string>,
@@ -1646,11 +1780,26 @@ export interface LiquidityGauge extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
+    working_balances(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides,
+    ): Promise<BigNumber>;
+
     working_supply(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
     DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    GAUGE_CONTROLLER(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    MINTER(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    MNT(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    VEBOOST_PROXY(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    VOTING_ESCROW(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     accept_transfer_ownership(
       overrides?: Overrides & { from?: PromiseOrValue<string> },
@@ -1663,6 +1812,12 @@ export interface LiquidityGauge extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     admin(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    allowance(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      overrides?: CallOverrides,
+    ): Promise<PopulatedTransaction>;
 
     approve(
       _spender: PromiseOrValue<string>,
@@ -1881,6 +2036,11 @@ export interface LiquidityGauge extends BaseContract {
       _value: PromiseOrValue<BigNumberish>,
       _claim_rewards_: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> },
+    ): Promise<PopulatedTransaction>;
+
+    working_balances(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     working_supply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
