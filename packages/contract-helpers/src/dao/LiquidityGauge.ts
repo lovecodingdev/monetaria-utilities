@@ -22,7 +22,6 @@ import {
   WithdrawParamsType,
 } from './types/LiquidityGaugeTypes';
 import { VotingEscrow } from './VotingEscrow';
-import { VotingEscrow as IVotingEscrow } from './typechain/VotingEscrow';
 
 export interface LiquidityGaugeInterface {
   deposit: (
@@ -51,6 +50,10 @@ export class LiquidityGauge
 
   readonly wethGatewayService: WETHGatewayInterface;
 
+  public get contract() {
+    return this.getContractInstance(this.liquidityGaugeAddress);
+  }
+
   constructor(
     provider: providers.Provider,
     liquidityGaugeConfig?: LiquidityGaugeConfig,
@@ -63,7 +66,6 @@ export class LiquidityGauge
 
     // initialize services
     this.erc20Service = new ERC20Service(provider);
-    this.votingEscrow = new VotingEscrow(provider);
   }
 
   public async deposit(
@@ -71,11 +73,7 @@ export class LiquidityGauge
     @isPositiveAmount('amount')
     { user, amount }: DepositParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
-    const liquidityGaugeContract: ILiquidityGauge = this.getContractInstance(
-      this.liquidityGaugeAddress,
-    );
-
-    let mTokenAddress = await liquidityGaugeContract.lp_token();
+    let mTokenAddress = await this.contract.lp_token();
 
     const { isApproved, approve, decimalsOf }: IERC20ServiceInterface =
       this.erc20Service;
@@ -102,9 +100,7 @@ export class LiquidityGauge
 
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>
-        liquidityGaugeContract.populateTransaction['deposit(uint256)'](
-          convertedAmount,
-        ),
+        this.contract.populateTransaction['deposit(uint256)'](convertedAmount),
       from: user,
     });
 
@@ -132,15 +128,9 @@ export class LiquidityGauge
     const decimals: number = await decimalsOf(this.liquidityGaugeAddress);
     const convertedAmount: string = valueToWei(amount, decimals);
 
-    const liquidityGaugeContract: ILiquidityGauge = this.getContractInstance(
-      this.liquidityGaugeAddress,
-    );
-
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>
-        liquidityGaugeContract.populateTransaction['withdraw(uint256)'](
-          convertedAmount,
-        ),
+        this.contract.populateTransaction['withdraw(uint256)'](convertedAmount),
       from: user,
     });
 
@@ -161,16 +151,21 @@ export class LiquidityGauge
     @isEthAddress('user')
     { user, l, L, veCRV, totalveCRV }: CalcUpdateLiquidityLimitParamsType,
   ): Promise<number[]> {
-    const liquidityGaugeContract: ILiquidityGauge = this.getContractInstance(
-      this.liquidityGaugeAddress,
-    );
+    const { decimalsOf }: IERC20ServiceInterface = this.erc20Service;
+    const gaugeDecimals = await decimalsOf(this.liquidityGaugeAddress);
+    const veDecimals = await decimalsOf(await this.contract.VOTING_ESCROW());
 
-    let workingBalances = await liquidityGaugeContract.working_balances(user);
-    let workingSupply = await liquidityGaugeContract.working_supply();
+    l = valueToWei(l, gaugeDecimals);
+    L = valueToWei(L, gaugeDecimals);
+    veCRV = valueToWei(veCRV, veDecimals);
+    totalveCRV = valueToWei(totalveCRV, veDecimals);
+
+    let workingBalances = await this.contract.working_balances(user);
+    let workingSupply = await this.contract.working_supply();
 
     let TOKENLESS_PRODUCTION = 40;
 
-    let lim = BigNumber.from(l).mul(TOKENLESS_PRODUCTION / 100);
+    let lim = BigNumber.from(l).mul(TOKENLESS_PRODUCTION).div(100);
     lim = lim.add(
       BigNumber.from(L)
         .mul(veCRV)
@@ -182,7 +177,7 @@ export class LiquidityGauge
       lim = BigNumber.from(l);
     }
     let old_bal = workingBalances;
-    let noboostLim = BigNumber.from(l).mul(TOKENLESS_PRODUCTION / 100);
+    let noboostLim = BigNumber.from(l).mul(TOKENLESS_PRODUCTION).div(100);
     let noboostSupply = workingSupply.add(noboostLim).sub(old_bal);
     let _workingSupply = workingSupply.add(lim).sub(old_bal);
     return [
