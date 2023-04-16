@@ -55,6 +55,10 @@ export class VotingEscrow
 
   readonly wethGatewayService: WETHGatewayInterface;
 
+  public get contract() {
+    return this.getContractInstance(this.votingEscrowAddress);
+  }
+
   constructor(
     provider: providers.Provider,
     votingEscrowConfig?: VotingEscrowConfig,
@@ -98,13 +102,9 @@ export class VotingEscrow
       txs.push(approveTx);
     }
 
-    const votingEscrowContract: IVotingEscrow = this.getContractInstance(
-      this.votingEscrowAddress,
-    );
-
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>
-        votingEscrowContract.populateTransaction.create_lock(
+        this.contract.populateTransaction.create_lock(
           convertedAmount,
           new BigNumber(unlockTime / 1000).toFixed(0, 1),
         ),
@@ -152,15 +152,9 @@ export class VotingEscrow
       txs.push(approveTx);
     }
 
-    const votingEscrowContract: IVotingEscrow = this.getContractInstance(
-      this.votingEscrowAddress,
-    );
-
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>
-        votingEscrowContract.populateTransaction.increase_amount(
-          convertedAmount,
-        ),
+        this.contract.populateTransaction.increase_amount(convertedAmount),
       from: user,
     });
 
@@ -183,13 +177,9 @@ export class VotingEscrow
   ): Promise<EthereumTransactionTypeExtended[]> {
     const txs: EthereumTransactionTypeExtended[] = [];
 
-    const votingEscrowContract: IVotingEscrow = this.getContractInstance(
-      this.votingEscrowAddress,
-    );
-
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>
-        votingEscrowContract.populateTransaction.increase_unlock_time(
+        this.contract.populateTransaction.increase_unlock_time(
           new BigNumber(unlockTime / 1000).toFixed(0, 1),
         ),
       from: user,
@@ -214,13 +204,8 @@ export class VotingEscrow
   ): Promise<EthereumTransactionTypeExtended[]> {
     const txs: EthereumTransactionTypeExtended[] = [];
 
-    const votingEscrowContract: IVotingEscrow = this.getContractInstance(
-      this.votingEscrowAddress,
-    );
-
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
-      rawTxMethod: async () =>
-        votingEscrowContract.populateTransaction.withdraw(),
+      rawTxMethod: async () => this.contract.populateTransaction.withdraw(),
       from: user,
     });
 

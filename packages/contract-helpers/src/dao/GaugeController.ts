@@ -37,6 +37,10 @@ export class GaugeController
 
   readonly wethGatewayService: WETHGatewayInterface;
 
+  public get contract() {
+    return this.getContractInstance(this.gaugeControllerAddress);
+  }
+
   constructor(
     provider: providers.Provider,
     gaugeControllerConfig?: GaugeControllerConfig,
@@ -58,13 +62,10 @@ export class GaugeController
     { user, gaugeAddr, userWeight }: VoteForGaugeWeightsParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     const txs: EthereumTransactionTypeExtended[] = [];
-    const gaugeControllerContract: IGaugeController = this.getContractInstance(
-      this.gaugeControllerAddress,
-    );
 
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>
-        gaugeControllerContract.populateTransaction.vote_for_gauge_weights(
+        this.contract.populateTransaction.vote_for_gauge_weights(
           gaugeAddr,
           new BigNumber(userWeight * 100).toFixed(0, 1),
         ),
