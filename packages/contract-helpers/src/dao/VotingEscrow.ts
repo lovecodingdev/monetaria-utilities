@@ -89,7 +89,7 @@ export class VotingEscrow
       token: this.mntAddress,
       user,
       spender: this.votingEscrowAddress,
-      amount: DEFAULT_APPROVE_AMOUNT,
+      amount,
     });
 
     if (!approved) {
@@ -139,7 +139,7 @@ export class VotingEscrow
       token: this.mntAddress,
       user,
       spender: this.votingEscrowAddress,
-      amount: DEFAULT_APPROVE_AMOUNT,
+      amount,
     });
 
     if (!approved) {

@@ -85,7 +85,7 @@ export class LiquidityGauge
       token: mTokenAddress,
       user,
       spender: this.liquidityGaugeAddress,
-      amount: DEFAULT_APPROVE_AMOUNT,
+      amount,
     });
 
     if (!approved) {
